@@ -11,7 +11,6 @@ namespace Banka.API.TokenServiceExtensions
 {
     public class JwtTokenGenerator
     {
-        // WARNING: This is just for demo purpose
         public static string Generate(string name, bool isAdmin, string issuer, string key)
         {
             var claims = new List<Claim>

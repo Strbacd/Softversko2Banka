@@ -10,6 +10,7 @@ namespace Banka.Data
     {
         public DbSet<Korisnik> Korisnici { get; set; }
         public DbSet<DinarskiRacun> DinarskiRacuni { get; set; }
+        public DbSet<DevizniRacun> DevizniRacuni { get; set; }
 
         public BankaKontekst (DbContextOptions options)
             : base(options)
@@ -24,12 +25,15 @@ namespace Banka.Data
             // Modelovanje odnosa Korisnika i Dinarskog racuna (1:1 odnos u bazi)
 
             modelBuilder.Entity<Korisnik>()
-                .HasOne(x => x.DinarskiRacun)
+                .HasMany(x => x.DinarskiRacun)
                 .WithOne(x => x.Korisnik)
-                .IsRequired(false);
+                .HasForeignKey(x => x.IdKorisnika)
+                .IsRequired();
 
             modelBuilder.Entity<DinarskiRacun>()
-                .HasKey(x => x.IdKorisnika);
+                .HasOne(x => x.Korisnik)
+                .WithMany(x => x.DinarskiRacun)
+                .IsRequired();
 
             // Modelovanje odnosa Korisnika i Deviznih racuna (1:n odnos u bazi)
 

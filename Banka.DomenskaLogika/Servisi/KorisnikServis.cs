@@ -64,12 +64,16 @@ namespace Banka.DomenskaLogika.Servisi
                 Ime = noviKorisnik.Ime,
                 Prezime = noviKorisnik.Prezime,
                 KorisnickoIme = noviKorisnik.KorisnickoIme,
-                isAdmin = false,
-                DinarskiRacun = new DinarskiRacun
-                {
-                    Stanje = 0
-                }
+                isAdmin = false
             };
+
+            korisnikZaUnos.DinarskiRacun = new List<DinarskiRacun>();
+            DinarskiRacun dinarskiRacunZaUnos = new DinarskiRacun
+            {
+                Stanje = 0
+            };
+
+            korisnikZaUnos.DinarskiRacun.Add(dinarskiRacunZaUnos);
 
             Korisnik rezultatUnosa = _korisnikRepozitorijum.Insert(korisnikZaUnos);
             if (rezultatUnosa == null)

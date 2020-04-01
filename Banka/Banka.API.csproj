@@ -17,9 +17,5 @@
     <ProjectReference Include="..\Banka.DomenskaLogika\Banka.DomenskaLogika.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Kontroleri\" />
-  </ItemGroup>
-
 
 </Project>
