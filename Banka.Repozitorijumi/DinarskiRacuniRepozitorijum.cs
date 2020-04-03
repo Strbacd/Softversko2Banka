@@ -3,6 +3,7 @@ using Banka.Data.Entiteti;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace Banka.Repozitorijumi
 {
     public interface IDinarskiRacuniRepozitorijum : IRepozitorijum<DinarskiRacun>
     {
+        Task<DinarskiRacun> DajPoKorisnikId(Guid id);
     }
     public class DinarskiRacuniRepozitorijum : IDinarskiRacuniRepozitorijum
     {
@@ -18,6 +20,12 @@ namespace Banka.Repozitorijumi
         public DinarskiRacuniRepozitorijum(BankaKontekst bankaKontekst)
         {
             _bankaKontekst = bankaKontekst;
+        }
+
+        public async Task<DinarskiRacun> DajPoKorisnikId(Guid id)
+        {
+            var rezultat = _bankaKontekst.DinarskiRacuni.Where(x => x.IdKorisnika == id).FirstOrDefault();
+            return rezultat;
         }
 
         public async Task<DinarskiRacun> DajPoId(object id)

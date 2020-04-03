@@ -11,10 +11,12 @@ namespace Banka.Data.Entiteti
     {
         [Key]
         public int IdDeviznogRacuna { get; set; }
-        public string Valuta { get; set; }
+        [ForeignKey("Valuta")]
+        public int IdValute { get; set; }
         public double Stanje { get; set; }
         [ForeignKey("Korisnik")]
         public Guid IdKorisnika { get; set; }
         public virtual Korisnik Korisnik { get; set; }
+        public virtual Valuta Valuta { get; set; }
     }
 }

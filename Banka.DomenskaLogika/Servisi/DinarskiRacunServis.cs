@@ -1,4 +1,5 @@
-﻿using Banka.DomenskaLogika.Interfejsi;
+﻿using Banka.Data.Entiteti;
+using Banka.DomenskaLogika.Interfejsi;
 using Banka.DomenskaLogika.Modeli;
 using Banka.DomenskaLogika.Poruke;
 using Banka.Repozitorijumi;
@@ -17,9 +18,6 @@ namespace Banka.DomenskaLogika.Servisi
         {
             _dinarskiRacunRepo = dinarskiRacunRepo;
         }
-
-
-
 
         public async Task<IEnumerable<DinarskiRacunDomenskiModel>> DajSveDinarskeRacune()
         {
@@ -44,7 +42,67 @@ namespace Banka.DomenskaLogika.Servisi
             return rezultat;
         }
 
+        public async Task<DinarskiRacunDomenskiModel> DajPoId(int id)
+        {
+            var data = await _dinarskiRacunRepo.DajPoId(id);
+            if(data == null)
+            {
+                return null;
+            }
 
+            DinarskiRacunDomenskiModel rezultat = new DinarskiRacunDomenskiModel
+            {
+                IdDInarskogRacuna = data.IdDInarskogRacuna,
+                IdKorisnika = data.IdKorisnika,
+                Stanje = data.Stanje
+            };
+
+            return rezultat;
+        }
+
+        public async Task<DinarskiRacunDomenskiModel> DajPoKorisnikId(Guid id)
+        {
+            var data = await _dinarskiRacunRepo.DajPoKorisnikId(id);
+            if (data == null)
+            {
+                return null;
+            }
+
+            DinarskiRacunDomenskiModel rezultat = new DinarskiRacunDomenskiModel
+            {
+                IdDInarskogRacuna = data.IdDInarskogRacuna,
+                IdKorisnika = data.IdKorisnika,
+                Stanje = data.Stanje
+            };
+
+            return rezultat;
+        }
+
+        public async Task<DinarskiRacunDomenskiModel> IzmeniDinarskiRacun(DinarskiRacunDomenskiModel izmenjenRacun)
+        {
+            DinarskiRacun dinarskiRacun = new DinarskiRacun
+            {
+                IdDInarskogRacuna = izmenjenRacun.IdDInarskogRacuna,
+                IdKorisnika = izmenjenRacun.IdKorisnika,
+                Stanje = izmenjenRacun.Stanje
+            };
+
+            var data = _dinarskiRacunRepo.Izmeni(dinarskiRacun);
+            if (data == null)
+            {
+                return null;
+            }
+            _dinarskiRacunRepo.Sacuvaj();
+
+            DinarskiRacunDomenskiModel rezultat = new DinarskiRacunDomenskiModel
+            {
+                IdDInarskogRacuna = data.IdDInarskogRacuna,
+                IdKorisnika = data.IdKorisnika,
+                Stanje = data.Stanje
+            };
+
+            return rezultat;
+        }
 
     }
 }

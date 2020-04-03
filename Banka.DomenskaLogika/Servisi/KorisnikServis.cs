@@ -20,6 +20,7 @@ namespace Banka.DomenskaLogika.Servisi
             _dinarskiRacunServis = dinarskiRacunServis;
             _korisnikRepozitorijum = korisniciRepozitorijum;
         }
+
         public async Task<IEnumerable<KorisnikDomenskiModel>> DajSveKorisnike()
         {
             var data = await _korisnikRepozitorijum.DajSve();
@@ -45,8 +46,25 @@ namespace Banka.DomenskaLogika.Servisi
             }
             return rezultat;
         }
+        public async Task<KorisnikDomenskiModel> DajKorisnikaPoId(Guid id)
+        {
+            var korisnik = await _korisnikRepozitorijum.DajPoId(id);
+            if (korisnik == null)
+            {
+                return null;
+            }
 
+            KorisnikDomenskiModel domenskiModel = new KorisnikDomenskiModel
+            {
+                Ime = korisnik.Ime,
+                IdKorisnika = korisnik.IdKorisnika,
+                Prezime = korisnik.Prezime,
+                KorisnickoIme = korisnik.KorisnickoIme,
+                isAdmin = korisnik.isAdmin
+            };
 
+            return domenskiModel;
+        }
         public async Task<ModelRezultatKreiranjaKorisnika> DodajKorisnika (KorisnikDomenskiModel noviKorisnik)
         {
             var proveraKorisnickogImena = await _korisnikRepozitorijum.DajPoKorisnickomImenu(noviKorisnik.KorisnickoIme);
@@ -101,6 +119,39 @@ namespace Banka.DomenskaLogika.Servisi
             };
             return unetiKorisnik;
         }
+        public async Task<KorisnikDomenskiModel> IzmeniKorisnika(KorisnikDomenskiModel izmenjenKorisnik)
+        {
+            Korisnik korisnik = new Korisnik
+            {
+                IdKorisnika = izmenjenKorisnik.IdKorisnika,
+                Ime = izmenjenKorisnik.Ime,
+                Prezime = izmenjenKorisnik.Prezime,
+                KorisnickoIme = izmenjenKorisnik.KorisnickoIme,
+                isAdmin = izmenjenKorisnik.isAdmin
+            };
 
+            var odgovorRepozitorijuma = _korisnikRepozitorijum.Izmeni(korisnik);
+            if(odgovorRepozitorijuma == null)
+            {
+                return null;
+            }
+            _korisnikRepozitorijum.Sacuvaj();
+
+            KorisnikDomenskiModel rezultatIzmene = new KorisnikDomenskiModel
+            {
+                IdKorisnika = odgovorRepozitorijuma.IdKorisnika,
+                KorisnickoIme = odgovorRepozitorijuma.KorisnickoIme,
+                Ime = odgovorRepozitorijuma.Ime,
+                Prezime = odgovorRepozitorijuma.Prezime,
+                isAdmin = odgovorRepozitorijuma.isAdmin
+            };
+
+            return rezultatIzmene;
+        }
+        public async Task<KorisnikDomenskiModel> DeaktivirajKorisnika(Guid id)
+        {
+            //TO BE IMPLEMENTED
+            return null;
+        }
     }
 }
