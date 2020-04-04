@@ -3,6 +3,7 @@ using Banka.Data.Entiteti;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace Banka.Repozitorijumi
 {
     public interface IValuteRepozitorijum : IRepozitorijum<Valuta>
     {
-
+        Task<Valuta> DajPoNazivu(string Naziv);
     }
     public class ValuteRepozitorijum : IValuteRepozitorijum
     {
@@ -18,6 +19,12 @@ namespace Banka.Repozitorijumi
         public async Task<Valuta> DajPoId(object id)
         {
             var rezultat = await _bankaKontekst.Valute.FindAsync(id);
+            return rezultat;
+        }
+
+        public async Task<Valuta> DajPoNazivu(string Naziv)
+        {
+            var rezultat = _bankaKontekst.Valute.Where(x => x.NazivValute == Naziv).First();
             return rezultat;
         }
 

@@ -11,5 +11,11 @@
         public const string DEVIZNIRACUN_GRESKA_PRI_UNOSI = "Desila se greska pri kreiranju novog deviznog racuna, pokusajte ponovo.";
         public const string DEVIZNIRACUN_POSTOJECI_RACUN = "Korisnik vec ima devizni racun sa unetom valutom.";
         #endregion
+
+        #region
+        public const string VALUTA_POGRESAN_NAZIV_VALUTE = "Greska pri unosu naziva valute, naziv valuta mora imati tacno 3 slova.";
+        public const string VALUTA_POSTOJECI_NAZIV_VALUTE = "Valuta sa unetim nazivom vec postoji.";
+        public const string VALUTA_GRESKA_PRI_KREIRANJU = "Doslo je do greske pri unosu nove valute, pokusajte ponovo.";
+        #endregion
     }
 }
