@@ -18,5 +18,6 @@ namespace Banka.Data.Entiteti
         public Guid IdKorisnika { get; set; }
         public virtual Korisnik Korisnik { get; set; }
         public virtual Valuta Valuta { get; set; }
+        public virtual ICollection<DeviznoPlacanje> DeviznaPlacanja { get; set; }
     }
 }

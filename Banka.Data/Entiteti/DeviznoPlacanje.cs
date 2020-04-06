@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+
+namespace Banka.Data.Entiteti
+{
+    [Table("DeviznoPlacanje")]
+    public class DeviznoPlacanje
+    {
+        [Key]
+        public Guid IdPlacanja { get; set; }
+        public string NazivPrimaoca { get; set; }
+        public ulong BrojRacunaPrimaoca { get; set; }
+        public int ModelPlacanja { get; set; }
+        public ulong PozivNaBroj { get; set; }
+        public double Iznos { get; set; }
+        public DateTime VremePlacanja { get; set; }
+        [ForeignKey("DevizniRacun")]
+        public int IdDeviznogRacuna { get; set; }
+        public virtual DevizniRacun DevizniRacun { get; set; }
+    }
+}

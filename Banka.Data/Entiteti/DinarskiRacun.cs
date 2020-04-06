@@ -15,5 +15,6 @@ namespace Banka.Data.Entiteti
         [ForeignKey("Korisnik")]
         public Guid IdKorisnika { get; set; }
         public virtual Korisnik Korisnik { get; set; }
+        public virtual ICollection<DinarskoPlacanje> DinarskaPlacanja { get; set; } 
     }
 }

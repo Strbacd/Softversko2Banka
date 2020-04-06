@@ -12,6 +12,8 @@ namespace Banka.Data
         public DbSet<DinarskiRacun> DinarskiRacuni { get; set; }
         public DbSet<DevizniRacun> DevizniRacuni { get; set; }
         public DbSet<Valuta> Valute { get; set; }
+        public DbSet<DinarskoPlacanje> DinarskaPlacanja { get; set; }
+        public DbSet<DeviznoPlacanje> DeviznaPlacanja { get; set; }
 
         public BankaKontekst (DbContextOptions options)
             : base(options)
@@ -61,6 +63,32 @@ namespace Banka.Data
             modelBuilder.Entity<Valuta>()
                 .HasMany(x => x.DevizniRacun)
                 .WithOne(x => x.Valuta)
+                .IsRequired();
+
+            // Modelovanje odnosa DinarskogRacuna i DinarskogPlacanja (1:n odnos u bazi)
+
+            modelBuilder.Entity<DinarskoPlacanje>()
+                .HasOne(x => x.DinarskiRacun)
+                .WithMany(x => x.DinarskaPlacanja)
+                .HasForeignKey(x => x.IdDinarskogRacuna)
+                .IsRequired();
+
+            modelBuilder.Entity<DinarskiRacun>()
+                .HasMany(x => x.DinarskaPlacanja)
+                .WithOne(x => x.DinarskiRacun)
+                .IsRequired();
+
+            // Modelovanja odnosa DeviznogRacuna i DeviznogPlacanja (1:n odnos u bazi)
+
+            modelBuilder.Entity<DeviznoPlacanje>()
+                .HasOne(x => x.DevizniRacun)
+                .WithMany(y => y.DeviznaPlacanja)
+                .HasForeignKey(z => z.IdDeviznogRacuna)
+                .IsRequired();
+
+            modelBuilder.Entity<DevizniRacun>()
+                .HasMany(x => x.DeviznaPlacanja)
+                .WithOne(x => x.DevizniRacun)
                 .IsRequired();
         }
     }
