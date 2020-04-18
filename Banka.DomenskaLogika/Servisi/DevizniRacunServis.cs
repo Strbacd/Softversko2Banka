@@ -60,6 +60,50 @@ namespace Banka.DomenskaLogika.Servisi
             };
             return rezultat;
         }
+        public async Task<IEnumerable<DevizniRacunDomenskiModel>> DajPoKorisnikId(Guid korisnikId)
+        {
+            var data = await _devizniRacunRepo.DajPoKorisnikId(korisnikId);
+            if (data == null)
+            {
+                return null;
+            }
+
+            List<DevizniRacunDomenskiModel> rezultat = new List<DevizniRacunDomenskiModel>();
+            DevizniRacunDomenskiModel model = new DevizniRacunDomenskiModel();
+
+            foreach(DevizniRacun devizniRacun in data)
+            {
+                model = new DevizniRacunDomenskiModel
+                {
+                    IdDeviznogRacuna = devizniRacun.IdDeviznogRacuna,
+                    IdKorisnika = devizniRacun.IdKorisnika,
+                    IdValute = devizniRacun.IdValute,
+                    Stanje = devizniRacun.Stanje
+                };
+                rezultat.Add(model);
+            }
+            return rezultat;
+        }
+
+        public async Task<DevizniRacunDomenskiModel> DajPoKorisnikuIValuti(Guid korisnikId, int valutaId)
+        {
+            var data = await _devizniRacunRepo.DajPoKorisnikIdValutaId(korisnikId, valutaId);
+
+            if (data == null)
+            {
+                return null;
+            }
+
+            DevizniRacunDomenskiModel rezultat = new DevizniRacunDomenskiModel
+            {
+                IdDeviznogRacuna = data.IdDeviznogRacuna,
+                IdKorisnika = data.IdKorisnika,
+                IdValute = data.IdValute,
+                Stanje = data.Stanje
+            };
+
+            return rezultat;
+        }
 
         public async Task<DevizniRacunDomenskiModel> IzmeniDevizniRacun (DevizniRacunDomenskiModel izmenjenDevizniRacun)
         {

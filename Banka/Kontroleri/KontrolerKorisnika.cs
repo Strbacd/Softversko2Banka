@@ -4,6 +4,7 @@ using Banka.DomenskaLogika.Modeli;
 using Banka.DomenskaLogika.Poruke;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,72 @@ namespace Banka.API.Kontroleri
             return Ok(listaKorisnika);
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task <ActionResult<KorisnikDomenskiModel>> DajPoIdKorisnika(Guid id)
+        {
+            KorisnikDomenskiModel korisnik;
+
+            korisnik = await _korisnikServis.DajKorisnikaPoId(id);
+
+            if (korisnik == null)
+            {
+                return NotFound(Greske.KORISNIK_NEPOSTOJECI_ID);
+            }
+            return Ok(korisnik);
+        }
+
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<ActionResult> IzmeniKorisnika(Guid id, [FromBody]IzmenjenKorisnikModel izmenjenKorisnik)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            KorisnikDomenskiModel korisnikZaPromenu;
+            korisnikZaPromenu = await _korisnikServis.DajKorisnikaPoId(id);
+            if (korisnikZaPromenu == null)
+            {
+                ModelGreske greska = new ModelGreske
+                {
+                    PorukaGreske = Greske.KORISNIK_NEPOSTOJECI_ID,
+                    StatusKod = System.Net.HttpStatusCode.BadRequest
+                };
+                return BadRequest(greska);
+            }
+
+            korisnikZaPromenu.KorisnickoIme = izmenjenKorisnik.KorisnickoIme;
+
+            ModelRezultatKreiranjaKorisnika rezultatPromene;
+            try
+            {
+                rezultatPromene = await _korisnikServis.IzmeniKorisnika(korisnikZaPromenu);
+            }
+            catch(DbUpdateException e)
+            {
+                ModelGreske greska = new ModelGreske
+                {
+                    PorukaGreske = e.InnerException.Message ?? e.Message,
+                    StatusKod = System.Net.HttpStatusCode.BadRequest
+                };
+                return BadRequest(greska);
+            }
+
+            if (rezultatPromene.Uspeh == false)
+            {
+                ModelGreske greska = new ModelGreske
+                {
+                    PorukaGreske = rezultatPromene.Greska,
+                    StatusKod = System.Net.HttpStatusCode.BadRequest
+                };
+                return BadRequest(greska);
+            }
+
+            return Accepted("korisnik//" + rezultatPromene.Korisnik.IdKorisnika, rezultatPromene.Korisnik);
+        }
 
     }
 }

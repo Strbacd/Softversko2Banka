@@ -10,5 +10,7 @@ namespace Banka.DomenskaLogika.Interfejsi
     {
         Task<IEnumerable<KorisnikDomenskiModel>> DajSveKorisnike();
         Task<ModelRezultatKreiranjaKorisnika> DodajKorisnika(KorisnikDomenskiModel noviKorisnik);
+        Task<KorisnikDomenskiModel> DajKorisnikaPoId(Guid id);
+        Task<ModelRezultatKreiranjaKorisnika> IzmeniKorisnika(KorisnikDomenskiModel izmenjenKorisnik);
     }
 }

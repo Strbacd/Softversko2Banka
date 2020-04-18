@@ -11,6 +11,5 @@ namespace Banka.DomenskaLogika.Interfejsi
         Task<ModelRezultatKreiranjaValute> DodajValutu(ValutaDomenskiModel novaValuta);
         Task<IEnumerable<ValutaDomenskiModel>> DajSveValute();
         Task<ValutaDomenskiModel> DajValutuPoId(int id);
-        Task<ModelRezultatKreiranjaValute> DodajValutu(ValutaDomenskiModel novaValuta);
     }
 }

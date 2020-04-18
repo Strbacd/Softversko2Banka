@@ -119,8 +119,18 @@ namespace Banka.DomenskaLogika.Servisi
             };
             return unetiKorisnik;
         }
-        public async Task<KorisnikDomenskiModel> IzmeniKorisnika(KorisnikDomenskiModel izmenjenKorisnik)
+        public async Task<ModelRezultatKreiranjaKorisnika> IzmeniKorisnika(KorisnikDomenskiModel izmenjenKorisnik)
         {
+            var proveraKorisnickogImena = await _korisnikRepozitorijum.DajPoKorisnickomImenu(izmenjenKorisnik.KorisnickoIme);
+            if (proveraKorisnickogImena != null)
+            {
+                return new ModelRezultatKreiranjaKorisnika
+                {
+                    Uspeh = false,
+                    Greska = Greske.KORISNIK_POSTOJECE_KORISNICKOIME
+                };
+            }
+
             Korisnik korisnik = new Korisnik
             {
                 IdKorisnika = izmenjenKorisnik.IdKorisnika,
@@ -133,7 +143,11 @@ namespace Banka.DomenskaLogika.Servisi
             var odgovorRepozitorijuma = _korisnikRepozitorijum.Izmeni(korisnik);
             if(odgovorRepozitorijuma == null)
             {
-                return null;
+                return new ModelRezultatKreiranjaKorisnika
+                {
+                    Uspeh = false,
+                    Greska = Greske.KORISNIK_GRESKA_PRI_IZMENI
+                };
             }
             _korisnikRepozitorijum.Sacuvaj();
 
@@ -146,7 +160,14 @@ namespace Banka.DomenskaLogika.Servisi
                 isAdmin = odgovorRepozitorijuma.isAdmin
             };
 
-            return rezultatIzmene;
+            ModelRezultatKreiranjaKorisnika rezultat = new ModelRezultatKreiranjaKorisnika
+            {
+                Uspeh = true,
+                Greska = null,
+                Korisnik = rezultatIzmene
+            };
+
+            return rezultat;
         }
         public async Task<KorisnikDomenskiModel> DeaktivirajKorisnika(Guid id)
         {

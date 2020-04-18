@@ -11,7 +11,7 @@ namespace Banka.Repozitorijumi
 {
     public interface IDeviznaPlacanjaRepozitorijum : IRepozitorijum<DeviznoPlacanje>
     {
-
+        Task<IEnumerable<DeviznoPlacanje>> DajPoIdDeviznogRacuna(int idRacuna);
     }
     public class DeviznaPlacanjaRepozitorijum : IDeviznaPlacanjaRepozitorijum
     {
