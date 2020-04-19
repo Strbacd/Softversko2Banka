@@ -41,9 +41,6 @@ namespace Banka.DomenskaLogika.Servisi
             }
             return rezultat;
         }
-
-
-
         public async Task<ValutaDomenskiModel> DajValutuPoId(int id)
         {
             var data = await _valuteRepozitorijum.DajPoId(id);
@@ -60,7 +57,6 @@ namespace Banka.DomenskaLogika.Servisi
             };
             return rezultat;
         }
-
         public async Task<ModelRezultatKreiranjaValute> DodajValutu (ValutaDomenskiModel novaValuta)
         {
             if (novaValuta.NazivValute.Length != 3)

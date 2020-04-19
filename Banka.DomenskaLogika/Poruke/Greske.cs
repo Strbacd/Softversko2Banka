@@ -27,6 +27,7 @@
         public const string VALUTA_POGRESAN_NAZIV_VALUTE = "Greska pri unosu naziva valute, naziv valuta mora imati tacno 3 slova.";
         public const string VALUTA_POSTOJECI_NAZIV_VALUTE = "Valuta sa unetim nazivom vec postoji.";
         public const string VALUTA_GRESKA_PRI_KREIRANJU = "Doslo je do greske pri unosu nove valute, pokusajte ponovo.";
+        public const string VALUTA_NEPOSTOJECI_ID = "Izabrana valuta ne postoji.";
         #endregion
 
         #region
