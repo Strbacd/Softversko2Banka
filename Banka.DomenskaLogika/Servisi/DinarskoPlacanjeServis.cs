@@ -13,11 +13,13 @@ namespace Banka.DomenskaLogika.Servisi
     public class DinarskoPlacanjeServis : IDinarskoPlacanjeServis
     {
         private readonly IDinarskaPlacanjaRepozitorijum _dinarskoPlacanjeRepo;
+        private readonly IDinarskiRacunServis _dinarskiRacunServis;
 
 
-        public DinarskoPlacanjeServis(IDinarskaPlacanjaRepozitorijum dinarskoPlacanjeRepo)
+        public DinarskoPlacanjeServis(IDinarskaPlacanjaRepozitorijum dinarskoPlacanjeRepo, IDinarskiRacunServis dinarskiRacunServis)
         {
             _dinarskoPlacanjeRepo = dinarskoPlacanjeRepo;
+            _dinarskiRacunServis = dinarskiRacunServis;
         }
 
         public async Task<DinarskoPlacanjeDomenskiModel> DajDinarskoPlacanjePoId(int id)
@@ -82,6 +84,16 @@ namespace Banka.DomenskaLogika.Servisi
                 PozivNaBroj = novoPlacanje.PozivNaBroj,
                 VremePlacanja = novoPlacanje.VremePlacanja
             };
+
+            var proveraStanjaRacuna = await _dinarskiRacunServis.OduzmiSredstva(placanjeZaUnos.IdDinarskogRacuna, placanjeZaUnos.Iznos);
+            if (proveraStanjaRacuna.Uspeh != true)
+            {
+                return new ModelRezultatDinarskogPlacanja
+                {
+                    Uspeh = false,
+                    Greska = proveraStanjaRacuna.Greska
+                };
+            }
 
             DinarskoPlacanje rezultatUnosa = _dinarskoPlacanjeRepo.Insert(placanjeZaUnos);
             if (rezultatUnosa == null)

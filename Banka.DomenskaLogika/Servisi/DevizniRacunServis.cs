@@ -42,7 +42,6 @@ namespace Banka.DomenskaLogika.Servisi
             }
             return rezultat;
         }
-
         public async Task<DevizniRacunDomenskiModel> DajPoId(int id)
         {
             var data = await _devizniRacunRepo.DajPoId(id);
@@ -84,7 +83,6 @@ namespace Banka.DomenskaLogika.Servisi
             }
             return rezultat;
         }
-
         public async Task<DevizniRacunDomenskiModel> DajPoKorisnikuIValuti(Guid korisnikId, int valutaId)
         {
             var data = await _devizniRacunRepo.DajPoKorisnikIdValutaId(korisnikId, valutaId);
@@ -104,7 +102,6 @@ namespace Banka.DomenskaLogika.Servisi
 
             return rezultat;
         }
-
         public async Task<DevizniRacunDomenskiModel> IzmeniDevizniRacun (DevizniRacunDomenskiModel izmenjenDevizniRacun)
         {
             DevizniRacun devizniRacun = new DevizniRacun
@@ -131,7 +128,6 @@ namespace Banka.DomenskaLogika.Servisi
             };
             return rezultat;
         }
-
         public async Task<ModelRezultatKreiranjaDeviznogRacuna> DodajDevizniRacun(DevizniRacunDomenskiModel devizniRacunZaDodavanje)
         {
             var proveraPostojecihRacuna = await _devizniRacunRepo.DajPoKorisnikIdValutaId(devizniRacunZaDodavanje.IdKorisnika, devizniRacunZaDodavanje.IdValute);
@@ -176,6 +172,68 @@ namespace Banka.DomenskaLogika.Servisi
                 }
             };
             return unetiDevizniRacun;
+        }
+        public async Task<ModelRezultatKreiranjaDeviznogRacuna> OduzmiSredstva(int id, double sumaNovca)
+        {
+            // Provera da li racun postoji
+            var postojeciRacun = await _devizniRacunRepo.DajPoId(id);
+            if (postojeciRacun == null)
+            {
+                return new ModelRezultatKreiranjaDeviznogRacuna
+                {
+                    Uspeh = false,
+                    Greska = Greske.DEVIZNIRACUN_NEPOSTOJECI_RACUN
+                };
+            }
+
+            // Provera da li racun ima dovoljno sredstava za placanje
+            if (postojeciRacun.Stanje < sumaNovca)
+            {
+                return new ModelRezultatKreiranjaDeviznogRacuna
+                {
+                    Uspeh = false,
+                    Greska = Greske.DEVIZNIRACUN_NEDOVOLJNO_SREDSTAVA
+                };
+            }
+
+            // Skidanje Sredstava
+            DevizniRacun devizniRacunZaIzmenu = new DevizniRacun
+            {
+                IdDeviznogRacuna = postojeciRacun.IdDeviznogRacuna,
+                IdKorisnika = postojeciRacun.IdKorisnika,
+                IdValute = postojeciRacun.IdValute,
+                Stanje = postojeciRacun.Stanje - sumaNovca
+            };
+
+            var rezultatIzmene = _devizniRacunRepo.Izmeni(devizniRacunZaIzmenu);
+            if (rezultatIzmene == null)
+            {
+                return new ModelRezultatKreiranjaDeviznogRacuna
+                {
+                    Uspeh = false,
+                    Greska = Greske.DEVIZNIRACUN_GRESKA_PRI_SKIDANJU_SREDSTAVA
+                };
+            }
+
+            _devizniRacunRepo.Sacuvaj();
+
+            // Odgovaranje novim stanjem racuna
+            DevizniRacunDomenskiModel rezultatIzmeneModel = new DevizniRacunDomenskiModel
+            {
+                IdDeviznogRacuna = rezultatIzmene.IdDeviznogRacuna,
+                IdKorisnika = rezultatIzmene.IdKorisnika,
+                IdValute = rezultatIzmene.IdValute,
+                Stanje = rezultatIzmene.Stanje
+            };
+
+            ModelRezultatKreiranjaDeviznogRacuna rezultat = new ModelRezultatKreiranjaDeviznogRacuna
+            {
+                Greska = null,
+                Uspeh = true,
+                DevizniRacun = rezultatIzmeneModel
+            };
+
+            return rezultat;
         }
 
     }

@@ -41,7 +41,6 @@ namespace Banka.DomenskaLogika.Servisi
             }
             return rezultat;
         }
-
         public async Task<DinarskiRacunDomenskiModel> DajPoId(int id)
         {
             var data = await _dinarskiRacunRepo.DajPoId(id);
@@ -59,7 +58,6 @@ namespace Banka.DomenskaLogika.Servisi
 
             return rezultat;
         }
-
         public async Task<DinarskiRacunDomenskiModel> DajPoKorisnikId(Guid id)
         {
             var data = await _dinarskiRacunRepo.DajPoKorisnikId(id);
@@ -77,7 +75,6 @@ namespace Banka.DomenskaLogika.Servisi
 
             return rezultat;
         }
-
         public async Task<DinarskiRacunDomenskiModel> IzmeniDinarskiRacun(DinarskiRacunDomenskiModel izmenjenRacun)
         {
             DinarskiRacun dinarskiRacun = new DinarskiRacun
@@ -99,6 +96,66 @@ namespace Banka.DomenskaLogika.Servisi
                 IdDInarskogRacuna = data.IdDInarskogRacuna,
                 IdKorisnika = data.IdKorisnika,
                 Stanje = data.Stanje
+            };
+
+            return rezultat;
+        }
+        public async Task<ModelRezultatKreiranjaDinarskogRacuna> OduzmiSredstva (int id,double sumaNovca)
+        {
+            // Provera da li racun postoji
+            var postojeciRacun = await _dinarskiRacunRepo.DajPoId(id);
+            if (postojeciRacun == null)
+            {
+                return new ModelRezultatKreiranjaDinarskogRacuna
+                {
+                    Uspeh = false,
+                    Greska = Greske.DINARSKI_RACUN_NEPOSTOJECI
+                };
+            }
+
+            // Provera da li racun ima dovoljno sredstava za placanje
+            if (postojeciRacun.Stanje < sumaNovca)
+            {
+                return new ModelRezultatKreiranjaDinarskogRacuna
+                {
+                    Uspeh = false,
+                    Greska = Greske.DINARSKI_RACUN_NEDOVOLJNO_SREDSTAVA
+                };
+            }
+
+            // Skidanje Sredstava
+            DinarskiRacun dinarskiRacunZaIzmenu = new DinarskiRacun
+            {
+                IdDInarskogRacuna = postojeciRacun.IdDInarskogRacuna,
+                IdKorisnika = postojeciRacun.IdKorisnika,
+                Stanje = postojeciRacun.Stanje - sumaNovca
+            };
+ 
+            var rezultatIzmene = _dinarskiRacunRepo.Izmeni(dinarskiRacunZaIzmenu);
+            if (rezultatIzmene == null)
+            {
+                return new ModelRezultatKreiranjaDinarskogRacuna
+                {
+                    Uspeh = false,
+                    Greska = Greske.DINARSKI_RACUN_GRESKA_PRI_ODUZIMANJU_SREDSTAVA
+                };
+            }
+
+            _dinarskiRacunRepo.Sacuvaj();
+
+            // Odgovaranje novim stanjem racuna
+            DinarskiRacunDomenskiModel rezultatIzmeneModel = new DinarskiRacunDomenskiModel
+            {
+                IdDInarskogRacuna = rezultatIzmene.IdDInarskogRacuna,
+                IdKorisnika = rezultatIzmene.IdKorisnika,
+                Stanje = rezultatIzmene.Stanje
+            };
+
+            ModelRezultatKreiranjaDinarskogRacuna rezultat = new ModelRezultatKreiranjaDinarskogRacuna
+            {
+                Uspeh = true,
+                Greska = null,
+                DinarskiRacun = rezultatIzmeneModel
             };
 
             return rezultat;

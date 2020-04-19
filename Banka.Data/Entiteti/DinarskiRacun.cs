@@ -11,7 +11,7 @@ namespace Banka.Data.Entiteti
     {
         [Key]
         public int IdDInarskogRacuna { get; set; }
-        public float Stanje { get; set; }
+        public double Stanje { get; set; }
         [ForeignKey("Korisnik")]
         public Guid IdKorisnika { get; set; }
         public virtual Korisnik Korisnik { get; set; }
