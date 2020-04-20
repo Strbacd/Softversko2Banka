@@ -108,5 +108,52 @@ namespace Banka.API.Kontroleri
             return Accepted("korisnik//" + rezultatPromene.Korisnik.IdKorisnika, rezultatPromene.Korisnik);
         }
 
+        [HttpPost]
+        [Route("")]
+        public async Task<ActionResult> DodajKorisnika ([FromBody]NoviKorisnik noviKorisnik)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            KorisnikDomenskiModel korisnikZaUnos = new KorisnikDomenskiModel
+            {
+                KorisnickoIme = noviKorisnik.KorisnickoIme,
+                Ime = noviKorisnik.Ime,
+                Prezime = noviKorisnik.Prezime,
+                isAdmin = false
+            };
+
+            ModelRezultatKreiranjaKorisnika unetiKorisnik;
+            try
+            {
+                unetiKorisnik = await _korisnikServis.DodajKorisnika(korisnikZaUnos);
+            }
+            catch (DbUpdateException e)
+            {
+                ModelGreske greska = new ModelGreske
+                {
+                    PorukaGreske = e.InnerException.Message ?? e.Message,
+                    StatusKod = System.Net.HttpStatusCode.BadRequest
+                };
+
+                return BadRequest(greska);
+            }
+
+            if (unetiKorisnik.Uspeh == false)
+            {
+                ModelGreske greska = new ModelGreske
+                {
+                    PorukaGreske = unetiKorisnik.Greska,
+                    StatusKod = System.Net.HttpStatusCode.BadRequest
+                };
+                return BadRequest(greska);
+            }
+
+            return Ok(unetiKorisnik.Korisnik);
+
+        }
+
     }
 }

@@ -153,15 +153,7 @@ namespace Banka.API.Kontroleri
                 return BadRequest(greska);
             }
 
-            DevizniRacunDomenskiModel rezultat = new DevizniRacunDomenskiModel
-            {
-                IdDeviznogRacuna = unetiDevizniRacun.DevizniRacun.IdDeviznogRacuna,
-                IdKorisnika = unetiDevizniRacun.DevizniRacun.IdKorisnika,
-                IdValute = unetiDevizniRacun.DevizniRacun.IdValute,
-                Stanje = unetiDevizniRacun.DevizniRacun.Stanje
-            };
-
-            return Ok(rezultat);
+            return Ok(unetiDevizniRacun.DevizniRacun);
 
         }
 

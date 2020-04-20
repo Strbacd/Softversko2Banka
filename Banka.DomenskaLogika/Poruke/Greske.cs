@@ -7,6 +7,8 @@
         public const string KORISNIK_GRESKA_PRI_UNOSU = "Desila se greska pri registrovanju novog korisnika, pokusajte ponovo.";
         public const string KORISNIK_NEPOSTOJECI_ID = "Trazeni korisnik ne postoji.";
         public const string KORISNIK_GRESKA_PRI_IZMENI = "Desila se greska pri izmeni podataka, pokusajte ponovo.";
+        public const string KORISNIK_POGRESNO_KORISNICKO_IME = "Korisnicko ime mora biti izmedju 4-20 karaktera. ";
+        public const string KORISNIK_POGRESNO_IMEPREZIME = "Ime i prezime ne moze biti duze od 50 karaktera. ";
         #endregion
 
         #region
