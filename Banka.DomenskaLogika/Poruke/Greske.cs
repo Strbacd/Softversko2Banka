@@ -34,6 +34,9 @@
 
         #region
         public const string DINARSKO_PLACANJE_GRESKA_PRI_UNOSU = "Doslo je do greske pri placanju, pokusajte ponovo.";
+        public const string DINARSKO_PLACANJE_POGRESAN_RACUNID = "Trazeni racun ne postoji. ";
+        public const string DINARSKO_PLACANJE_POGRESAN_ID = "Trazeno Dinarsko placanje ne postoji. ";
+        public const string DINARSKO_PLACANJE_POGRESAN_BROJRACUNA = "Broj racuna mora biti 13 cifara. ";
         #endregion
 
         #region

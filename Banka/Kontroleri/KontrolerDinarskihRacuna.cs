@@ -39,7 +39,7 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpGet]
-        [Route("{id})"]
+        [Route("{id})")]
         public async Task<ActionResult<DinarskiRacunDomenskiModel>> DajDinarskiRacunPoKorisnikId(Guid id)
         {
             var dinarskiRacun = await _dinarskiRacunServis.DajPoKorisnikId(id);
@@ -56,5 +56,6 @@ namespace Banka.API.Kontroleri
 
             return Ok(dinarskiRacun);
         }
+        
     }
 }

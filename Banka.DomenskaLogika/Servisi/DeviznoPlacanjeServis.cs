@@ -109,7 +109,7 @@ namespace Banka.DomenskaLogika.Servisi
                 ModelPlacanja = novoPlacanje.ModelPlacanja,
                 NazivPrimaoca = novoPlacanje.NazivPrimaoca,
                 PozivNaBroj = novoPlacanje.PozivNaBroj,
-                VremePlacanja = novoPlacanje.VremePlacanja
+                VremePlacanja = DateTime.Now
             };
 
             var proveraStanjaRacuna = await _devizniRacunServis.OduzmiSredstva(placanjeZaUnos.IdDeviznogRacuna, placanjeZaUnos.Iznos);
