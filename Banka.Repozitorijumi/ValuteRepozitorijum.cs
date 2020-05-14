@@ -16,6 +16,11 @@ namespace Banka.Repozitorijumi
     public class ValuteRepozitorijum : IValuteRepozitorijum
     {
         private BankaKontekst _bankaKontekst;
+
+        public ValuteRepozitorijum(BankaKontekst bankaKontekst)
+        {
+            _bankaKontekst = bankaKontekst;
+        }
         public async Task<Valuta> DajPoId(object id)
         {
             var rezultat = await _bankaKontekst.Valute.FindAsync(id);
@@ -24,7 +29,7 @@ namespace Banka.Repozitorijumi
 
         public async Task<Valuta> DajPoNazivu(string Naziv)
         {
-            var rezultat = _bankaKontekst.Valute.Where(x => x.NazivValute == Naziv).First();
+            var rezultat = _bankaKontekst.Valute.Where(x => x.NazivValute == Naziv).FirstOrDefault();
             return rezultat;
         }
 

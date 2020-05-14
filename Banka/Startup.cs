@@ -50,10 +50,19 @@ namespace Banka.API
             // Repozitorijumi
             services.AddTransient<IKorisniciRepozitorijum, KorisniciRepozitorijum>();
             services.AddTransient<IDinarskiRacuniRepozitorijum, DinarskiRacuniRepozitorijum>();
+            services.AddTransient<IDevizniRacuniRepozitorijum, DevizniRacuniRepozitorijumi>();
+            services.AddTransient<IDinarskaPlacanjaRepozitorijum, DinarskaPlacanjaRepozitorijum>();
+            services.AddTransient<IDeviznaPlacanjaRepozitorijum, DeviznaPlacanjaRepozitorijum>();
+            services.AddTransient<IValuteRepozitorijum, ValuteRepozitorijum>();
 
             // Interfejsi za Poslovnu logiku
             services.AddTransient<IKorisnikServis, KorisnikServis>();
             services.AddTransient<IDinarskiRacunServis, DinarskiRacunServis>();
+            services.AddTransient<IDevizniRacunServis, DevizniRacunServis>();
+            services.AddTransient<IDinarskoPlacanjeServis, DinarskoPlacanjeServis>();
+            services.AddTransient<IDeviznoPlacanjeServis, DeviznoPlacanjeServis>();
+            services.AddTransient<IValutaServis, ValutaServis>();
+            
 
             // Allow Cors for client app
             services.AddCors(options => {

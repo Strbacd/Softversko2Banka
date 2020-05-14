@@ -12,6 +12,6 @@ namespace Banka.DomenskaLogika.Interfejsi
         Task<DinarskiRacunDomenskiModel> DajPoId(int id);
         Task<DinarskiRacunDomenskiModel> DajPoKorisnikId(Guid id);
         Task<DinarskiRacunDomenskiModel> IzmeniDinarskiRacun(DinarskiRacunDomenskiModel izmenjenRacun);
-        Task<ModelRezultatKreiranjaDinarskogRacuna> OduzmiSredstva(int id, double sumaNovca);
+        Task<ModelRezultatKreiranjaDinarskogRacuna> OduzmiSredstva(int id, decimal sumaNovca);
     }
 }

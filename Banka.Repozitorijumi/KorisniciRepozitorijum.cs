@@ -32,7 +32,7 @@ namespace Banka.Repozitorijumi
 
         public async Task<Korisnik> DajPoKorisnickomImenu(string name)
         {
-            var postojeciKorisnik = _bankaKontekst.Korisnici.Where(x => x.KorisnickoIme.Equals(name)).First();
+            var postojeciKorisnik = await _bankaKontekst.Korisnici.Where(x => x.KorisnickoIme.Equals(name)).FirstOrDefaultAsync();
             if (postojeciKorisnik == null)
             {
                 return null;

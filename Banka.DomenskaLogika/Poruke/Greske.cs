@@ -9,6 +9,7 @@
         public const string KORISNIK_GRESKA_PRI_IZMENI = "Desila se greska pri izmeni podataka, pokusajte ponovo.";
         public const string KORISNIK_POGRESNO_KORISNICKO_IME = "Korisnicko ime mora biti izmedju 4-20 karaktera. ";
         public const string KORISNIK_POGRESNO_IMEPREZIME = "Ime i prezime ne moze biti duze od 50 karaktera. ";
+        public const string KORISNIK_ADRESA = "Adresa mora biti do 100 karaktera.";
         #endregion
 
         #region
@@ -41,6 +42,9 @@
 
         #region
         public const string DEVIZNOPLACANJE_GRESKA_PRI_UNOSU = "Doslo je do greske pri placanju, pokusajte ponovo.";
+        public const string DEVIZNOPLACANJE_POGRESAN_RACUNID = "Trazeni racun ne postoji.";
+        public const string DEVIZNOPLACANJE_POGRESAN_ID = "Trazeno Dinarsko placanje ne postoji. ";
+        public const string DEVIZNOPLACANJE_POGRESAN_BROJRACUNA = "Broj racuna mora biti 13 cifara. ";
         #endregion
     }
 }

@@ -19,5 +19,7 @@ namespace Banka.API.APIModeliPodataka
         [Required]
         [StringLength(50, ErrorMessage = Greske.KORISNIK_POGRESNO_IMEPREZIME)]
         public string Prezime { get; set; }
+        [StringLength(100, ErrorMessage = Greske.KORISNIK_ADRESA)]
+        public string Adresa { get; set; }
     }
 }

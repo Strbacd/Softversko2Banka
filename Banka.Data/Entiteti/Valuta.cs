@@ -12,7 +12,7 @@ namespace Banka.Data.Entiteti
         [Key]
         public int IdValute { get; set; }
         public string NazivValute { get; set; }
-        public double OdnosPremaDinaru { get; set; }
-        public virtual ICollection<DevizniRacun> DevizniRacun { get; set; }
+        public decimal OdnosPremaDinaru { get; set; }
+        public virtual ICollection<DevizniRacun> DevizniRacuni { get; set; }
     }
 }

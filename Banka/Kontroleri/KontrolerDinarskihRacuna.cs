@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace Banka.API.Kontroleri
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class KontrolerDinarskihRacuna : ControllerBase
@@ -39,7 +38,7 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpGet]
-        [Route("{id})")]
+        [Route("DajPoKorisnikId/{id}")]
         public async Task<ActionResult<DinarskiRacunDomenskiModel>> DajDinarskiRacunPoKorisnikId(Guid id)
         {
             var dinarskiRacun = await _dinarskiRacunServis.DajPoKorisnikId(id);

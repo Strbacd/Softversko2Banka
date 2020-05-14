@@ -10,6 +10,7 @@ namespace Banka.DomenskaLogika.Modeli
         public string KorisnickoIme { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
+        public string Adresa { get; set; }
         public bool isAdmin { get; set; }
     }
 }

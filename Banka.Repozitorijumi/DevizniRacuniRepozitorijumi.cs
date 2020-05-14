@@ -18,6 +18,12 @@ namespace Banka.Repozitorijumi
     public class DevizniRacuniRepozitorijumi : IDevizniRacuniRepozitorijum
     {
         private BankaKontekst _bankaKontekst;
+
+        public DevizniRacuniRepozitorijumi(BankaKontekst bankaKontekst)
+        {
+            _bankaKontekst = bankaKontekst;
+        }
+
         public async Task<DevizniRacun> DajPoId(object id)
         {
             var rezultat = await _bankaKontekst.DevizniRacuni.FindAsync(id);

@@ -8,7 +8,7 @@ namespace Banka.DomenskaLogika.Modeli
     {
         public int IdDeviznogRacuna { get; set; }
         public int IdValute { get; set; }
-        public double Stanje { get; set; }
+        public decimal Stanje { get; set; }
         public Guid IdKorisnika { get; set; }
     }
 }

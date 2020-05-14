@@ -40,6 +40,7 @@ namespace Banka.DomenskaLogika.Servisi
                     Ime = korisnik.Ime,
                     Prezime = korisnik.Prezime,
                     KorisnickoIme = korisnik.KorisnickoIme,
+                    Adresa = korisnik.Adresa,
                     isAdmin = korisnik.isAdmin
                 };
                 rezultat.Add(model);
@@ -60,6 +61,7 @@ namespace Banka.DomenskaLogika.Servisi
                 IdKorisnika = korisnik.IdKorisnika,
                 Prezime = korisnik.Prezime,
                 KorisnickoIme = korisnik.KorisnickoIme,
+                Adresa = korisnik.Adresa,
                 isAdmin = korisnik.isAdmin
             };
 
@@ -82,6 +84,7 @@ namespace Banka.DomenskaLogika.Servisi
                 Ime = noviKorisnik.Ime,
                 Prezime = noviKorisnik.Prezime,
                 KorisnickoIme = noviKorisnik.KorisnickoIme,
+                Adresa = noviKorisnik.Adresa,
                 isAdmin = false
             };
 
@@ -114,6 +117,7 @@ namespace Banka.DomenskaLogika.Servisi
                     IdKorisnika = rezultatUnosa.IdKorisnika,
                     Ime = rezultatUnosa.Ime,
                     Prezime = rezultatUnosa.Prezime,
+                    Adresa = rezultatUnosa.Adresa,
                     KorisnickoIme = rezultatUnosa.KorisnickoIme
                 }
             };
@@ -137,6 +141,7 @@ namespace Banka.DomenskaLogika.Servisi
                 Ime = izmenjenKorisnik.Ime,
                 Prezime = izmenjenKorisnik.Prezime,
                 KorisnickoIme = izmenjenKorisnik.KorisnickoIme,
+                Adresa = izmenjenKorisnik.Adresa,
                 isAdmin = izmenjenKorisnik.isAdmin
             };
 
@@ -157,6 +162,7 @@ namespace Banka.DomenskaLogika.Servisi
                 KorisnickoIme = odgovorRepozitorijuma.KorisnickoIme,
                 Ime = odgovorRepozitorijuma.Ime,
                 Prezime = odgovorRepozitorijuma.Prezime,
+                Adresa = odgovorRepozitorijuma.Adresa,
                 isAdmin = odgovorRepozitorijuma.isAdmin
             };
 

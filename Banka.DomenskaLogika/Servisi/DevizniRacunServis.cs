@@ -173,7 +173,7 @@ namespace Banka.DomenskaLogika.Servisi
             };
             return unetiDevizniRacun;
         }
-        public async Task<ModelRezultatKreiranjaDeviznogRacuna> OduzmiSredstva(int id, double sumaNovca)
+        public async Task<ModelRezultatKreiranjaDeviznogRacuna> OduzmiSredstva(int id, decimal sumaNovca)
         {
             // Provera da li racun postoji
             var postojeciRacun = await _devizniRacunRepo.DajPoId(id);

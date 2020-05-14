@@ -7,8 +7,7 @@ namespace Banka.API.APIModeliPodataka
 {
     public class IzmenjenKorisnikModel
     {
-        public Guid IdKorisnika { get; set; }
         public string KorisnickoIme { get; set; }
-
+        public string Adresa { get; set; }
     }
 }

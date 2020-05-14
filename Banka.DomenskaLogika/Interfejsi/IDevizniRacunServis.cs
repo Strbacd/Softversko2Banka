@@ -14,6 +14,6 @@ namespace Banka.DomenskaLogika.Interfejsi
         Task<DevizniRacunDomenskiModel> DajPoKorisnikuIValuti(Guid korisnikId, int valutaId);
         Task<DevizniRacunDomenskiModel> IzmeniDevizniRacun(DevizniRacunDomenskiModel izmenjenDevizniRacun);
         Task<ModelRezultatKreiranjaDeviznogRacuna> DodajDevizniRacun(DevizniRacunDomenskiModel devizniRacunZaDodavanje);
-        Task<ModelRezultatKreiranjaDeviznogRacuna> OduzmiSredstva(int id, double sumaNovca);
+        Task<ModelRezultatKreiranjaDeviznogRacuna> OduzmiSredstva(int id, decimal sumaNovca);
     }
 }

@@ -7,7 +7,7 @@ namespace Banka.DomenskaLogika.Modeli
     public class DinarskiRacunDomenskiModel
     {
         public int IdDInarskogRacuna { get; set; }
-        public double Stanje { get; set; }
+        public decimal Stanje { get; set; }
         public Guid IdKorisnika { get; set; }
     }
 }

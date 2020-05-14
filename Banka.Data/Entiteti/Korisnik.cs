@@ -14,6 +14,7 @@ namespace Banka.Data.Entiteti
         public string KorisnickoIme { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
+        public string Adresa { get; set; }
         public bool isAdmin { get; set; }
         public virtual ICollection<DinarskiRacun> DinarskiRacun { get; set; }
         public virtual ICollection<DevizniRacun> DevizniRacuni { get; set; }

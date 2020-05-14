@@ -56,12 +56,12 @@ namespace Banka.Data
 
             modelBuilder.Entity<DevizniRacun>()
                 .HasOne(x => x.Valuta)
-                .WithMany(x => x.DevizniRacun)
+                .WithMany(x => x.DevizniRacuni)
                 .HasForeignKey(x => x.IdValute)
                 .IsRequired();
 
             modelBuilder.Entity<Valuta>()
-                .HasMany(x => x.DevizniRacun)
+                .HasMany(x => x.DevizniRacuni)
                 .WithOne(x => x.Valuta)
                 .IsRequired();
 

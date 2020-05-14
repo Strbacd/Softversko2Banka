@@ -8,6 +8,6 @@ namespace Banka.DomenskaLogika.Modeli
     {
         public int IdValute { get; set; }
         public string NazivValute { get; set; }
-        public double OdnosPremaDinaru { get; set; }
+        public decimal OdnosPremaDinaru { get; set; }
     }
 }

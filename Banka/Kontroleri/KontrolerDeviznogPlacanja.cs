@@ -13,73 +13,72 @@ namespace Banka.API.Kontroleri
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class KontrolerDinarskogPlacanja : ControllerBase
+    public class KontrolerDeviznogPlacanja : ControllerBase
     {
-        private readonly IDinarskoPlacanjeServis _dinarskoPlacanjeServis;
+        private readonly IDeviznoPlacanjeServis _deviznoPlacanjeServis;
 
-        public KontrolerDinarskogPlacanja(IDinarskoPlacanjeServis dinarskoPlacanjeServis)
+        public KontrolerDeviznogPlacanja(IDeviznoPlacanjeServis deviznoPlacanjeServis)
         {
-            _dinarskoPlacanjeServis = dinarskoPlacanjeServis;
+            _deviznoPlacanjeServis = deviznoPlacanjeServis;
         }
 
         [HttpGet]
         [Route("PoRacunId/{id}")]
-        public async Task<ActionResult<IEnumerable<DinarskoPlacanjeDomenskiModel>>> DajSvaDinarskaPlacanjaPoRacunId(int id)
+        public async Task<ActionResult<IEnumerable<DeviznoPlacanjeDomenskiModel>>> DajSvaDeviznaPlacanjaPoRacunId(int id)
         {
-            var listaDinarskihPlacanja = await _dinarskoPlacanjeServis.DajDinarskaPlacanjaPoRacunId(id);
-
-            if (listaDinarskihPlacanja == null)
+            var listaDeviznihPlacanja = await _deviznoPlacanjeServis.DajDeviznaPlacanjaPoRacunId(id);
+            if (listaDeviznihPlacanja == null)
             {
                 ModelGreske greska = new ModelGreske
                 {
-                    PorukaGreske = Greske.DINARSKO_PLACANJE_POGRESAN_RACUNID,
+                    PorukaGreske = Greske.DEVIZNOPLACANJE_POGRESAN_RACUNID,
                     StatusKod = System.Net.HttpStatusCode.BadRequest
                 };
                 return BadRequest(greska);
             }
-            return Ok(listaDinarskihPlacanja);
+            return Ok(listaDeviznihPlacanja);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<DinarskoPlacanjeDomenskiModel>> DajPoId(int id)
+        public async Task<ActionResult<DeviznoPlacanjeDomenskiModel>> DajPoId(int id)
         {
-            var dinarskoPlacanje = await _dinarskoPlacanjeServis.DajDinarskoPlacanjePoId(id);
-            if (dinarskoPlacanje == null)
+            var deviznoPlacanje = await _deviznoPlacanjeServis.DajDeviznoPlacanjePoId(id);
+            if (deviznoPlacanje == null)
             {
                 ModelGreske greska = new ModelGreske
                 {
-                    PorukaGreske = Greske.DINARSKO_PLACANJE_POGRESAN_ID,
+                    PorukaGreske = Greske.DEVIZNOPLACANJE_POGRESAN_ID,
                     StatusKod = System.Net.HttpStatusCode.BadRequest
                 };
                 return BadRequest(greska);
             }
-            return Ok(dinarskoPlacanje);
+            return Ok(deviznoPlacanje);
         }
 
-        [HttpPost]
-        [Route("NovoDinarskoPlacanje/{idRacuna}")]
-        public async Task<ActionResult<DinarskoPlacanjeDomenskiModel>> DodajPlacanje([FromBody]NovoDinarskoPlacanjeModel novoDinarskoPlacanje, int idRacuna)
+        [HttpGet]
+        [Route("NovoDeviznoPlacanje/{idRacuna}")]
+        public async Task<ActionResult<DeviznoPlacanjeDomenskiModel>> DodajPlacanje([FromBody]NovoDeviznoPlacanjeModel novoDeviznoPlacanje, int idRacuna)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            DinarskoPlacanjeDomenskiModel dinarskoPlacanjeZaUnos = new DinarskoPlacanjeDomenskiModel
+            DeviznoPlacanjeDomenskiModel deviznoPlacanjeZaUnos = new DeviznoPlacanjeDomenskiModel
             {
-                BrojRacunaPrimaoca = novoDinarskoPlacanje.BrojRacunaPrimaoca,
-                IdDinarskogRacuna = idRacuna,
-                Iznos = novoDinarskoPlacanje.Iznos,
-                ModelPlacanja = novoDinarskoPlacanje.ModelPlacanja,
-                NazivPrimaoca = novoDinarskoPlacanje.NazivPrimaoca,
-                PozivNaBroj = novoDinarskoPlacanje.PozivNaBroj
+                BrojRacunaPrimaoca = novoDeviznoPlacanje.BrojRacunaPrimaoca,
+                IdDeviznogRacuna = idRacuna,
+                Iznos = novoDeviznoPlacanje.Iznos,
+                ModelPlacanja = novoDeviznoPlacanje.ModelPlacanja,
+                NazivPrimaoca = novoDeviznoPlacanje.NazivPrimaoca,
+                PozivNaBroj = novoDeviznoPlacanje.PozivNaBroj
             };
 
-            ModelRezultatDinarskogPlacanja ostvarenoPlacanje;
+            ModelRezultatDeviznogPlacanja ostvarenoPlacanje;
             try
             {
-                ostvarenoPlacanje = await _dinarskoPlacanjeServis.DodajDinarskoPlacanje(dinarskoPlacanjeZaUnos);
+                ostvarenoPlacanje = await _deviznoPlacanjeServis.DodajDeviznoPlacanje(deviznoPlacanjeZaUnos);
             }
             catch (DbUpdateException e)
             {
@@ -100,7 +99,6 @@ namespace Banka.API.Kontroleri
                 };
                 return BadRequest(greska);
             }
-
             return Ok(ostvarenoPlacanje.Placanje);
         }
     }

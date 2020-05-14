@@ -79,6 +79,7 @@ namespace Banka.API.Kontroleri
             }
 
             korisnikZaPromenu.KorisnickoIme = izmenjenKorisnik.KorisnickoIme;
+            korisnikZaPromenu.Adresa = izmenjenKorisnik.Adresa;
 
             ModelRezultatKreiranjaKorisnika rezultatPromene;
             try
@@ -109,7 +110,7 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpPost]
-        [Route("")]
+        [Route("dodajKorisnika")]
         public async Task<ActionResult> DodajKorisnika ([FromBody]NoviKorisnik noviKorisnik)
         {
             if (!ModelState.IsValid)
@@ -122,6 +123,7 @@ namespace Banka.API.Kontroleri
                 KorisnickoIme = noviKorisnik.KorisnickoIme,
                 Ime = noviKorisnik.Ime,
                 Prezime = noviKorisnik.Prezime,
+                Adresa = noviKorisnik.Adresa,
                 isAdmin = false
             };
 
@@ -141,7 +143,7 @@ namespace Banka.API.Kontroleri
                 return BadRequest(greska);
             }
 
-            if (unetiKorisnik.Uspeh == false)
+            if (unetiKorisnik.Uspeh != true)
             {
                 ModelGreske greska = new ModelGreske
                 {
