@@ -1,0 +1,80 @@
+Create Database [Banka]
+GO
+
+Use Banka
+GO
+
+Create Table Korisnik (
+	IdKorisnika uniqueidentifier PRIMARY KEY DEFAULT newsequentialid(),
+	KorisnickoIme nvarchar(40) UNIQUE NOT NULL,
+	Ime nvarchar(40) NOT NULL,
+	Prezime nvarchar(40) NOT NULL,
+	Lozinka nvarchar(40) NOT NULL,
+	Adresa nvarchar(100),
+	isAdmin bit DEFAULT (0)
+)
+
+
+Create Table DinarskiRacun (
+	IdDinarskogRacuna int UNIQUE IDENTITY (1,1) NOT NULL,
+	Stanje decimal(30,4) DEFAULT (0),
+	IdKorisnika uniqueidentifier NOT NULL
+)
+
+Create Table DevizniRacun (
+	IdDeviznogRacuna int PRIMARY KEY IDENTITY (1,1),
+	IdValute int UNIQUE NOT NULL,
+	Stanje decimal (30,4) DEFAULT (0),
+	IdKorisnika uniqueidentifier
+)
+
+Create Table Valuta {
+	IdValute int PRIMARY KEY IDENTITY (1,1),
+	NazivValute char(3) NOT NULL UNIQUE,
+	OdnosPremaDinaru decimal (30,4)
+}
+
+Create Table DinarskoPlacanje (
+	IdDinarskogPlacanja uniqueidentifier PRIMARY KEY DEFAULT newsequentialid(),
+	NazivPrimaoca nvarchar(100),
+	BrojRacunaPrimaoca bigint NOT NULL,
+	Model int,
+	PozivNaBroj bigint,
+	Iznos decimal (30,4),
+	VremePlacanja datetime,
+	IdDinarskogRacuna int
+)
+
+Create Table DeviznoPlacanje (
+	IdDeviznogPlacanja uniqueidentifier PRIMARY KEY DEFAULT newsequentialid(),
+	NazivPrimaoca nvarchar(100),
+	BrojRacunaPrimaoca bigint NOT NULL,
+	Model int,
+	PozivNaBroj bigint,
+	Iznos decimal (30,4),
+	VremePlacanja datetime,
+	IdDeviznogRacuna int
+)
+
+
+Alter Table DinarskiRacun 
+ADD CONSTRAINT PK_DINARSKIRACUN PRIMARY KEY CLUSTERED (IdDinarskogRacuna, IdKorisnika)
+
+
+
+Alter Table DinarskiRacun
+ADD CONSTRAINT FK_DINARSKIRACUN_KORISNIK FOREIGN KEY (IdKorisnika) REFERENCES Korisnik(IdKorisnika)
+
+Alter Table DevizniRacun
+ADD CONSTRAINT FK_DEVIZNIRACUN_VALUTE FOREIGN KEY (IdValute) REFERENCES Valuta(IdValute)
+
+Alter Table DevizniRacun
+ADD CONSTRAINT FK_DEVIZNIRACUN_KORISNIK FOREIGN KEY (IdKorisnika) REFERENCES Korisnik(IdKorisnika)
+
+ALTER TABLE DinarskoPlacanje
+ADD CONSTRAINT FK_DINARSKOPLACANJE_DINARSKIRACUN FOREIGN KEY (IdDinarskogRacuna) REFERENCES DinarskiRacun(IdDinarskogRacuna)
+
+ALTER TABLE DeviznoPlacanje
+ADD CONSTRAINT FK_DEVIZNOPLACANJE_DEVIZNIRACUN FOREIGN KEY (IdDeviznogRacuna) REFERENCES DevizniRacun(IdDeviznogRacuna)
+
+
