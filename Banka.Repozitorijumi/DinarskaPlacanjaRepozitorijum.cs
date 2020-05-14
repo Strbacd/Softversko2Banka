@@ -25,7 +25,7 @@ namespace Banka.Repozitorijumi
 
         public async Task<IEnumerable<DinarskoPlacanje>> DajSvePoIdDinarskogRacuna(int IdDinarskogRacuna)
         {
-            var rezultat = _bankaKontekst.DinarskaPlacanja.Where(x => x.IdDinarskogRacuna == IdDinarskogRacuna);
+            var rezultat = await _bankaKontekst.DinarskaPlacanja.Where(x => x.IdDinarskogRacuna == IdDinarskogRacuna).ToListAsync();
             return rezultat;
         }
 

@@ -22,7 +22,7 @@ namespace Banka.DomenskaLogika.Servisi
             _dinarskiRacunServis = dinarskiRacunServis;
         }
 
-        public async Task<DinarskoPlacanjeDomenskiModel> DajDinarskoPlacanjePoId(int id)
+        public async Task<DinarskoPlacanjeDomenskiModel> DajDinarskoPlacanjePoId(Guid id)
         {
             var data = await _dinarskoPlacanjeRepo.DajPoId(id);
             if(data == null)

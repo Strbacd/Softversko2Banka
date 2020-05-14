@@ -5,8 +5,10 @@ using Banka.DomenskaLogika.Poruke;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Banka.API.Kontroleri
 {
@@ -42,7 +44,7 @@ namespace Banka.API.Kontroleri
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<DinarskoPlacanjeDomenskiModel>> DajPoId(int id)
+        public async Task<ActionResult<DinarskoPlacanjeDomenskiModel>> DajPoId(Guid id)
         {
             var dinarskoPlacanje = await _dinarskoPlacanjeServis.DajDinarskoPlacanjePoId(id);
             if (dinarskoPlacanje == null)

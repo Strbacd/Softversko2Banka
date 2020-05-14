@@ -13,9 +13,9 @@ namespace Banka.API.APIModeliPodataka
         public string NazivPrimaoca { get; set; }
         [Required]
         [StringLength(13, MinimumLength = 13, ErrorMessageResourceName = Greske.DEVIZNOPLACANJE_POGRESAN_BROJRACUNA)]
-        public ulong BrojRacunaPrimaoca { get; set; }
+        public long BrojRacunaPrimaoca { get; set; }
         public int ModelPlacanja { get; set; }
-        public ulong PozivNaBroj { get; set; }
+        public long PozivNaBroj { get; set; }
         [Required]
         public decimal Iznos { get; set; }
     }

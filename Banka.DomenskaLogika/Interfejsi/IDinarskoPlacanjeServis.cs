@@ -8,7 +8,7 @@ namespace Banka.DomenskaLogika.Interfejsi
 {
     public interface IDinarskoPlacanjeServis
     {
-        Task<DinarskoPlacanjeDomenskiModel> DajDinarskoPlacanjePoId(int id);
+        Task<DinarskoPlacanjeDomenskiModel> DajDinarskoPlacanjePoId(Guid id);
         Task<IEnumerable<DinarskoPlacanjeDomenskiModel>> DajDinarskaPlacanjaPoRacunId(int idRacuna);
         Task<ModelRezultatDinarskogPlacanja> DodajDinarskoPlacanje(DinarskoPlacanjeDomenskiModel novoPlacanje);
         Task<DinarskoPlacanjeDomenskiModel> IzbrisiDinarskoPlacanjePoId(int id);
