@@ -95,7 +95,6 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpPost]
-        [Route("")]
         public async Task<ActionResult<DevizniRacunDomenskiModel>> KreirajNoviDevizniRacun([FromBody] NovDevizniRacunModel novDevizniRacun)
         {
             var proveraKorisnika = await _korisnikServis.DajKorisnikaPoId(novDevizniRacun.IdKorisnika);

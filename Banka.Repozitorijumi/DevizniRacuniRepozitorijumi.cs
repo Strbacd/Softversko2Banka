@@ -38,7 +38,7 @@ namespace Banka.Repozitorijumi
 
         public async Task<DevizniRacun> DajPoKorisnikIdValutaId(Guid korisnikId, int valutaId)
         {
-            var rezultat = _bankaKontekst.DevizniRacuni.Where(x => x.IdKorisnika == korisnikId && x.IdValute == x.IdValute).First();
+            var rezultat = _bankaKontekst.DevizniRacuni.Where(x => x.IdKorisnika == korisnikId && x.IdValute == valutaId).FirstOrDefault();
             return rezultat;
         }
 
