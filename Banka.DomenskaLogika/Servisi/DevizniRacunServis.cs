@@ -36,7 +36,12 @@ namespace Banka.DomenskaLogika.Servisi
                     IdDeviznogRacuna = racun.IdDeviznogRacuna,
                     IdKorisnika = racun.IdKorisnika,
                     IdValute = racun.IdValute,
-                    Stanje = racun.Stanje
+                    Stanje = racun.Stanje,
+                    Korisnik = new KorisnikDomenskiModel { IdKorisnika = racun.Korisnik.IdKorisnika,
+                                                            Ime = racun.Korisnik.Ime,
+                                                            Prezime = racun.Korisnik.Prezime,
+                                                            KorisnickoIme = racun.Korisnik.KorisnickoIme,
+                                                            Adresa = racun.Korisnik.Adresa}
                 };
                 rezultat.Add(model);
             }

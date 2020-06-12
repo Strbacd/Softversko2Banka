@@ -44,7 +44,7 @@ namespace Banka.Repozitorijumi
 
         public async Task<IEnumerable<DevizniRacun>> DajSve()
         {
-            var rezultat = await _bankaKontekst.DevizniRacuni.ToListAsync();
+            var rezultat = await _bankaKontekst.DevizniRacuni.Include(x => x.Korisnik).ToListAsync();
             return rezultat;
         }
 

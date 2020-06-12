@@ -67,6 +67,27 @@ namespace Banka.DomenskaLogika.Servisi
 
             return domenskiModel;
         }
+
+        public async Task<KorisnikDomenskiModel> DajKorisnikaPoKorisnickomImenu(string korisnickoIme)
+        {
+            var korisnik = await _korisnikRepozitorijum.DajPoKorisnickomImenu(korisnickoIme);
+            if (korisnik == null)
+            {
+                return null;
+            }
+
+            KorisnikDomenskiModel domenskiModel = new KorisnikDomenskiModel
+            {
+                Ime = korisnik.Ime,
+                IdKorisnika = korisnik.IdKorisnika,
+                Prezime = korisnik.Prezime,
+                KorisnickoIme = korisnik.KorisnickoIme,
+                Adresa = korisnik.Adresa,
+                isAdmin = korisnik.isAdmin
+            };
+
+            return domenskiModel;
+        }
         public async Task<ModelRezultatKreiranjaKorisnika> DodajKorisnika (KorisnikDomenskiModel noviKorisnik)
         {
             var proveraKorisnickogImena = await _korisnikRepozitorijum.DajPoKorisnickomImenu(noviKorisnik.KorisnickoIme);

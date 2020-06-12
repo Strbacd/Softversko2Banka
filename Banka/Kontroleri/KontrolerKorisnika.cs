@@ -56,6 +56,22 @@ namespace Banka.API.Kontroleri
             return Ok(korisnik);
         }
 
+        [HttpGet]
+        [Route("DajPoKorisnickomImenu/{ime}")]
+        public async Task<ActionResult<IEnumerable<KorisnikDomenskiModel>>> DajPoIdKorisnika(string ime)
+        {
+            KorisnikDomenskiModel korisnik;
+
+            korisnik = await _korisnikServis.DajKorisnikaPoKorisnickomImenu(ime);
+
+            List<KorisnikDomenskiModel> listaKorisnika = new List<KorisnikDomenskiModel>();
+            listaKorisnika.Add(korisnik);
+
+            IEnumerable<KorisnikDomenskiModel> odgovor = listaKorisnika;
+
+            return Ok(listaKorisnika);
+        }
+
 
         [HttpPut]
         [Route("{id}")]

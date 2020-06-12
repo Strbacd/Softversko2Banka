@@ -12,5 +12,6 @@ namespace Banka.DomenskaLogika.Interfejsi
         Task<ModelRezultatKreiranjaKorisnika> DodajKorisnika(KorisnikDomenskiModel noviKorisnik);
         Task<KorisnikDomenskiModel> DajKorisnikaPoId(Guid id);
         Task<ModelRezultatKreiranjaKorisnika> IzmeniKorisnika(KorisnikDomenskiModel izmenjenKorisnik);
+        Task<KorisnikDomenskiModel> DajKorisnikaPoKorisnickomImenu(string korisnickoIme);
     }
 }
