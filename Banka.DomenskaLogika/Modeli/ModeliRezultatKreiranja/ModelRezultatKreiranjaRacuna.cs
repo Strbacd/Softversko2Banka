@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Banka.DomenskaLogika.Modeli
 {
-    public class ModelRezultatDinarskogPlacanja
+    public class ModelRezultatKreiranjaRacuna
     {
         public bool Uspeh { get; set; }
         public string Greska { get; set; }
-        public DinarskoPlacanjeDomenskiModel Placanje { get; set; }
+        public RacunDomenskiModel Racun { get; set; }
     }
 }

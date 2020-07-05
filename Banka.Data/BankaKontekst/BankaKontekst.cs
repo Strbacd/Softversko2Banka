@@ -9,11 +9,9 @@ namespace Banka.Data
     public class BankaKontekst : DbContext
     {
         public DbSet<Korisnik> Korisnici { get; set; }
-        public DbSet<DinarskiRacun> DinarskiRacuni { get; set; }
-        public DbSet<DevizniRacun> DevizniRacuni { get; set; }
+        public DbSet<Racun> Racuni { get; set; }
         public DbSet<Valuta> Valute { get; set; }
-        public DbSet<DinarskoPlacanje> DinarskaPlacanja { get; set; }
-        public DbSet<DeviznoPlacanje> DeviznaPlacanja { get; set; }
+        public DbSet<Placanje> Placanja { get; set; }
 
         public BankaKontekst (DbContextOptions options)
             : base(options)
@@ -25,70 +23,48 @@ namespace Banka.Data
             base.OnModelCreating(modelBuilder);
 
 
-            // Modelovanje odnosa Korisnika i Dinarskog racuna (1:1 odnos u bazi)
+            // Modelovanje kompozitnog kljuca Racun tabele
+            modelBuilder.Entity<Racun>()
+                .HasKey(x => new { x.IdValute, x.IdKorisnika });
+
+            // Modelovanje odnosa Korisnika i Racuna (1:n odnos u bazi)
 
             modelBuilder.Entity<Korisnik>()
-                .HasMany(x => x.DinarskiRacun)
-                .WithOne(x => x.Korisnik)
-                .HasForeignKey(x => x.IdKorisnika)
-                .IsRequired();
-
-            modelBuilder.Entity<DinarskiRacun>()
-                .HasOne(x => x.Korisnik)
-                .WithMany(x => x.DinarskiRacun)
-                .IsRequired();
-
-            // Modelovanje odnosa Korisnika i Deviznih racuna (1:n odnos u bazi)
-
-            modelBuilder.Entity<Korisnik>()
-                .HasMany(x => x.DevizniRacuni)
+                .HasMany(x => x.Racuni)
                 .WithOne(x => x.Korisnik)
                 .HasForeignKey(x => x.IdKorisnika)
                 .IsRequired();
 
 
-            modelBuilder.Entity<DevizniRacun>()
+            modelBuilder.Entity<Racun>()
                 .HasOne(x => x.Korisnik)
-                .WithMany(x => x.DevizniRacuni)
+                .WithMany(x => x.Racuni)
                 .IsRequired();
 
-            // Modelovanje odnosa Deviznog racuna i valuta (1:n odnosu u bazi)
+            // Modelovanje odnosa Racuna i valuta (1:n odnosu u bazi)
 
-            modelBuilder.Entity<DevizniRacun>()
+            modelBuilder.Entity<Racun>()
                 .HasOne(x => x.Valuta)
-                .WithMany(x => x.DevizniRacuni)
+                .WithMany(x => x.Racuni)
                 .HasForeignKey(x => x.IdValute)
                 .IsRequired();
 
             modelBuilder.Entity<Valuta>()
-                .HasMany(x => x.DevizniRacuni)
+                .HasMany(x => x.Racuni)
                 .WithOne(x => x.Valuta)
                 .IsRequired();
 
-            // Modelovanje odnosa DinarskogRacuna i DinarskogPlacanja (1:n odnos u bazi)
+            // Modelovanje odnosa Racuna i Placanja (1:n odnos u bazi)
 
-            modelBuilder.Entity<DinarskoPlacanje>()
-                .HasOne(x => x.DinarskiRacun)
-                .WithMany(x => x.DinarskaPlacanja)
-                .HasForeignKey(x => x.IdDinarskogRacuna)
+            modelBuilder.Entity<Placanje>()
+                .HasOne(x => x.Racun)
+                .WithMany(x => x.Placanja)
+                .HasForeignKey(x => x.IdRacuna)
                 .IsRequired();
 
-            modelBuilder.Entity<DinarskiRacun>()
-                .HasMany(x => x.DinarskaPlacanja)
-                .WithOne(x => x.DinarskiRacun)
-                .IsRequired();
-
-            // Modelovanja odnosa DeviznogRacuna i DeviznogPlacanja (1:n odnos u bazi)
-
-            modelBuilder.Entity<DeviznoPlacanje>()
-                .HasOne(x => x.DevizniRacun)
-                .WithMany(y => y.DeviznaPlacanja)
-                .HasForeignKey(z => z.IdDeviznogRacuna)
-                .IsRequired();
-
-            modelBuilder.Entity<DevizniRacun>()
-                .HasMany(x => x.DeviznaPlacanja)
-                .WithOne(x => x.DevizniRacun)
+            modelBuilder.Entity<Racun>()
+                .HasMany(x => x.Placanja)
+                .WithOne(x => x.Racun)
                 .IsRequired();
         }
     }

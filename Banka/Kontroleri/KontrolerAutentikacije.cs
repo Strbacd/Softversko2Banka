@@ -19,11 +19,8 @@ namespace Banka.API.Kontroleri
             _configuration = configuration;
         }
 
-        // NOT FOR PRODUCTION USE!!!
-        // you will need a robust auth implementation for production
-        // i.e. try IdentityServer4
         [Route("daj-token")]
-        public IActionResult GenerateToken(string name = "aspnetcore-workshop-demo", bool admin = false)
+        public IActionResult GenerateToken(string name, bool admin = true)
         {
             var jwt = JwtTokenGenerator
                 .Generate(name, admin, _configuration["Tokens:Issuer"], _configuration["Tokens:Key"]);

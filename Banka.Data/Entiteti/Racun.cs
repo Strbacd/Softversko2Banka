@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Banka.Data.Entiteti
 {
-    [Table("DevizniRacun")]
-    public class DevizniRacun
+    [Table("Racun")]
+    public class Racun
     {
         [Key]
-        public int IdDeviznogRacuna { get; set; }
+        public long IdRacuna { get; set; }
         [ForeignKey("Valuta")]
         public int IdValute { get; set; }
         public decimal Stanje { get; set; }
@@ -18,6 +18,6 @@ namespace Banka.Data.Entiteti
         public Guid IdKorisnika { get; set; }
         public virtual Korisnik Korisnik { get; set; }
         public virtual Valuta Valuta { get; set; }
-        public virtual ICollection<DeviznoPlacanje> DeviznaPlacanja { get; set; }
+        public virtual ICollection<Placanje> Placanja { get; set; }
     }
 }

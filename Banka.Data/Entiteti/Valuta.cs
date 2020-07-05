@@ -13,6 +13,6 @@ namespace Banka.Data.Entiteti
         public int IdValute { get; set; }
         public string NazivValute { get; set; }
         public decimal OdnosPremaDinaru { get; set; }
-        public virtual ICollection<DevizniRacun> DevizniRacuni { get; set; }
+        public virtual ICollection<Racun> Racuni { get; set; }
     }
 }
