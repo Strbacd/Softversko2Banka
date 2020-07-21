@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace Banka.Repozitorijumi
         Task<Racun> DajPoIdRacuna(long IdRacuna);
         Task<IEnumerable<Racun>> DajPoKorisnikId(Guid IdKorisnika);
         Task<IEnumerable<Racun>> DajPoValuti(int IdValute);
+        Task<Racun> DajPoKorisnikuIValuti(Guid idKorisnika, int idValute);
 
     }
     class RacuniRepozitorijum : IRacuniRepozitorijum
@@ -27,7 +29,7 @@ namespace Banka.Repozitorijumi
 
         public async Task<Racun> DajPoIdRacuna(long IdRacuna)
         {
-            var rezultat = _bankaKontekst.Racuni.Where(x => x.IdRacuna == IdRacuna).FirstOrDefault();
+            var rezultat = _bankaKontekst.Racuni.Where(x => x.IdRacuna == IdRacuna).Include(x => x.Korisnik).FirstOrDefault();
             return rezultat;
         }
 
@@ -40,6 +42,12 @@ namespace Banka.Repozitorijumi
         public async Task<IEnumerable<Racun>> DajPoValuti(int IdValute)
         {
             var rezultat = _bankaKontekst.Racuni.Where(x => x.IdValute == IdValute);
+            return rezultat;
+        }
+
+        public async Task<Racun> DajPoKorisnikuIValuti(Guid idKorisnika, int idValute)
+        {
+            var rezultat = _bankaKontekst.Racuni.Where(x => x.IdKorisnika == idKorisnika && x.IdValute == idValute).FirstOrDefault();
             return rezultat;
         }
 

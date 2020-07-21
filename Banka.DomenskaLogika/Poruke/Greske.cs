@@ -13,17 +13,11 @@
         #endregion
 
         #region
-        public const string DEVIZNIRACUN_GRESKA_PRI_UNOSI = "Desila se greska pri kreiranju novog deviznog racuna, pokusajte ponovo.";
-        public const string DEVIZNIRACUN_POSTOJECI_RACUN = "Korisnik vec ima devizni racun sa unetom valutom.";
-        public const string DEVIZNIRACUN_NEPOSTOJECI_RACUN = "Devizni Racun nije pronadjen.";
-        public const string DEVIZNIRACUN_NEDOVOLJNO_SREDSTAVA = "Na Vasem racunu nemate dovoljno sredstava da izvrsite ovo placanje.";
-        public const string DEVIZNIRACUN_GRESKA_PRI_SKIDANJU_SREDSTAVA = "Doslo je do greske pri skidanju sredstava sa racuna.";
-        #endregion
-
-        #region
-        public const string DINARSKI_RACUN_NEDOVOLJNO_SREDSTAVA = "Na Vasem racunu nemate dovoljno sredstava da izvrsite ovo placanje.";
-        public const string DINARSKI_RACUN_NEPOSTOJECI = "Dinarski racun nije pronadjen.";
-        public const string DINARSKI_RACUN_GRESKA_PRI_ODUZIMANJU_SREDSTAVA = "Doslo je do greske pri skidanju sredstava sa dinarskog racuna.";
+        public const string RACUN_GRESKA_PRI_UNOSI = "Desila se greska pri kreiranju novog racuna, pokusajte ponovo.";
+        public const string RACUN_POSTOJECI_RACUN = "Korisnik vec ima devizni racun sa unetom valutom.";
+        public const string RACUN_NEPOSTOJECI_RACUN = "Devizni Racun nije pronadjen.";
+        public const string RACUN_NEDOVOLJNO_SREDSTAVA = "Na Vasem racunu nemate dovoljno sredstava da izvrsite ovo placanje.";
+        public const string RACUN_GRESKA_PRI_SKIDANJU_SREDSTAVA = "Doslo je do greske pri skidanju sredstava sa racuna.";
         #endregion
 
         #region
