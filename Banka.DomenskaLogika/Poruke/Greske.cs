@@ -25,20 +25,14 @@
         public const string VALUTA_POSTOJECI_NAZIV_VALUTE = "Valuta sa unetim nazivom vec postoji.";
         public const string VALUTA_GRESKA_PRI_KREIRANJU = "Doslo je do greske pri unosu nove valute, pokusajte ponovo.";
         public const string VALUTA_NEPOSTOJECI_ID = "Izabrana valuta ne postoji.";
+        public const string VALUTA_GRESKA_PRI_IZMENI = "Greska pri izmeni valute.";
         #endregion
 
         #region
-        public const string DINARSKO_PLACANJE_GRESKA_PRI_UNOSU = "Doslo je do greske pri placanju, pokusajte ponovo.";
-        public const string DINARSKO_PLACANJE_POGRESAN_RACUNID = "Trazeni racun ne postoji. ";
-        public const string DINARSKO_PLACANJE_POGRESAN_ID = "Trazeno Dinarsko placanje ne postoji. ";
-        public const string DINARSKO_PLACANJE_POGRESAN_BROJRACUNA = "Broj racuna mora biti 13 cifara. ";
-        #endregion
-
-        #region
-        public const string DEVIZNOPLACANJE_GRESKA_PRI_UNOSU = "Doslo je do greske pri placanju, pokusajte ponovo.";
-        public const string DEVIZNOPLACANJE_POGRESAN_RACUNID = "Trazeni racun ne postoji.";
-        public const string DEVIZNOPLACANJE_POGRESAN_ID = "Trazeno Dinarsko placanje ne postoji. ";
-        public const string DEVIZNOPLACANJE_POGRESAN_BROJRACUNA = "Broj racuna mora biti 13 cifara. ";
+        public const string PLACANJE_GRESKA_PRI_UNOSU = "Doslo je do greske pri placanju, pokusajte ponovo.";
+        public const string PLACANJE_POGRESAN_RACUNID = "Trazeni racun ne postoji. ";
+        public const string PLACANJE_POGRESAN_ID = "Trazeno Dinarsko placanje ne postoji. ";
+        public const string PLACANJE_POGRESAN_BROJRACUNA = "Broj racuna mora biti 13 cifara. ";
         #endregion
     }
 }

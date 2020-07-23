@@ -108,7 +108,41 @@ namespace Banka.DomenskaLogika.Servisi
             };
             return rezultatKreiranjaValute;
         }
+        public async Task<ModelRezultatKreiranjaValute> IzmeniValutu (ValutaDomenskiModel izmenjenaValuta)
+        {
+            Valuta valuta = new Valuta
+            {
+                IdValute = izmenjenaValuta.IdValute,
+                NazivValute = izmenjenaValuta.NazivValute,
+                OdnosPremaDinaru = izmenjenaValuta.OdnosPremaDinaru
+            };
 
+            var repoOdgovor = _valuteRepozitorijum.Izmeni(valuta);
+            if(repoOdgovor == null)
+            {
+                return new ModelRezultatKreiranjaValute
+                {
+                    Uspeh = false,
+                    Greska = Greske.VALUTA_GRESKA_PRI_IZMENI
+                };
+            }
+
+            _valuteRepozitorijum.Sacuvaj();
+
+            ModelRezultatKreiranjaValute rezultat = new ModelRezultatKreiranjaValute
+            {
+                Uspeh = true,
+                Greska = null,
+                Valuta = new ValutaDomenskiModel
+                {
+                    IdValute = repoOdgovor.IdValute,
+                    NazivValute = repoOdgovor.NazivValute,
+                    OdnosPremaDinaru = repoOdgovor.OdnosPremaDinaru
+                }
+            };
+
+            return rezultat;
+        }
 
     }
 }

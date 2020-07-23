@@ -109,14 +109,6 @@ namespace Banka.DomenskaLogika.Servisi
                 isAdmin = false
             };
 
-            korisnikZaUnos.DinarskiRacun = new List<DinarskiRacun>();
-            DinarskiRacun dinarskiRacunZaUnos = new DinarskiRacun
-            {
-                Stanje = 0
-            };
-
-            korisnikZaUnos.DinarskiRacun.Add(dinarskiRacunZaUnos);
-
             Korisnik rezultatUnosa = _korisnikRepozitorijum.Insert(korisnikZaUnos);
             if (rezultatUnosa == null)
             {

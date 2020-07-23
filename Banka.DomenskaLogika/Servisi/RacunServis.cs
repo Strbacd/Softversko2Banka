@@ -174,5 +174,67 @@ namespace Banka.DomenskaLogika.Servisi
             return unetiRacun;
 
         }
+        public async Task<ModelRezultatKreiranjaRacuna> OduzmiSredstva(long id, decimal sumaNovca)
+        {
+            // Provera da li racun postoji
+            var postojeciRacun = await _racunRepo.DajPoIdRacuna(id);
+            if (postojeciRacun == null)
+            {
+                return new ModelRezultatKreiranjaRacuna
+                {
+                    Uspeh = false,
+                    Greska = Greske.RACUN_NEPOSTOJECI_RACUN
+                };
+            }
+
+            // Provera da li racun ima dovoljno sredstava za placanje
+            if (postojeciRacun.Stanje < sumaNovca)
+            {
+                return new ModelRezultatKreiranjaRacuna
+                {
+                    Uspeh = false,
+                    Greska = Greske.RACUN_NEDOVOLJNO_SREDSTAVA
+                };
+            }
+
+            // Skidanje Sredstava
+            Racun racunZaIzmenu = new Racun
+            {
+                IdRacuna = postojeciRacun.IdRacuna,
+                IdKorisnika = postojeciRacun.IdKorisnika,
+                IdValute = postojeciRacun.IdValute,
+                Stanje = postojeciRacun.Stanje - sumaNovca
+            };
+
+            var rezultatIzmene = _racunRepo.Izmeni(racunZaIzmenu);
+            if (rezultatIzmene == null)
+            {
+                return new ModelRezultatKreiranjaRacuna
+                {
+                    Uspeh = false,
+                    Greska = Greske.RACUN_GRESKA_PRI_SKIDANJU_SREDSTAVA
+                };
+            }
+
+            _racunRepo.Sacuvaj();
+
+            // Odgovaranje novim stanjem racuna
+            RacunDomenskiModel rezultatIzmeneModel = new RacunDomenskiModel
+            {
+                IdRacuna = rezultatIzmene.IdRacuna,
+                IdKorisnika = rezultatIzmene.IdKorisnika,
+                IdValute = rezultatIzmene.IdValute,
+                Stanje = rezultatIzmene.Stanje
+            };
+
+            ModelRezultatKreiranjaRacuna rezultat = new ModelRezultatKreiranjaRacuna
+            {
+                Greska = null,
+                Uspeh = true,
+                Racun = rezultatIzmeneModel
+            };
+
+            return rezultat;
+        }
     }
 }

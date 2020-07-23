@@ -12,7 +12,7 @@ namespace Banka.Repozitorijumi
 {
     public interface IPlacanjeRepozitorijum : IRepozitorijum<Placanje>
     {
-        Task<IEnumerable<Placanje>> DajPoIdRacuna(long idRacuna)
+        Task<IEnumerable<Placanje>> DajPoIdRacuna(long idRacuna);
     }
     class PlacanjaRepozitorijum : IPlacanjeRepozitorijum
     {
