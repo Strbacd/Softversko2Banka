@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Banka.API.APIModeliPodataka
 {
-    public class NovoDinarskoPlacanjeModel
+    public class NovoPlacanjeModel
     {
         [Required]
         public string NazivPrimaoca { get; set; }
         [Required]
-        //[StringLength(13,MinimumLength = 13,ErrorMessageResourceName = Greske.DINARSKO_PLACANJE_POGRESAN_BROJRACUNA)]
+        [StringLength(13, MinimumLength = 13, ErrorMessageResourceName = Greske.PLACANJE_POGRESAN_BROJRACUNA)]
         public long BrojRacunaPrimaoca { get; set; }
         public int ModelPlacanja { get; set; }
         public long PozivNaBroj { get; set; }
