@@ -20,7 +20,7 @@ namespace Banka.API.Kontroleri
         }
 
         [Route("daj-token")]
-        public IActionResult GenerateToken(string name, bool admin = true)
+        public IActionResult GenerateToken(string name = "banka-demo-auth", bool admin = false)
         {
             var jwt = JwtTokenGenerator
                 .Generate(name, admin, _configuration["Tokens:Issuer"], _configuration["Tokens:Key"]);

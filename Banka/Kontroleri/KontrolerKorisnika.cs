@@ -140,6 +140,7 @@ namespace Banka.API.Kontroleri
                 Ime = noviKorisnik.Ime,
                 Prezime = noviKorisnik.Prezime,
                 Adresa = noviKorisnik.Adresa,
+                Lozinka = noviKorisnik.Lozinka,
                 isAdmin = false
             };
 

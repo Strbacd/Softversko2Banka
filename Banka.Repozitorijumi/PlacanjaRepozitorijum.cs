@@ -14,9 +14,14 @@ namespace Banka.Repozitorijumi
     {
         Task<IEnumerable<Placanje>> DajPoIdRacuna(long idRacuna);
     }
-    class PlacanjaRepozitorijum : IPlacanjeRepozitorijum
+    public class PlacanjaRepozitorijum : IPlacanjeRepozitorijum
     {
         private BankaKontekst _bankaKontekst;
+
+        public PlacanjaRepozitorijum(BankaKontekst bankaKontekst)
+        {
+            _bankaKontekst = bankaKontekst;
+        }
         public async Task<Placanje> DajPoId(object id)
         {
             var rezultat = await _bankaKontekst.Placanja.FindAsync(id);

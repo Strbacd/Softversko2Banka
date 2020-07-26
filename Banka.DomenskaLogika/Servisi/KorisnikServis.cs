@@ -13,11 +13,9 @@ namespace Banka.DomenskaLogika.Servisi
     public class KorisnikServis : IKorisnikServis
     {
         private readonly IKorisniciRepozitorijum _korisnikRepozitorijum;
-        private readonly IDinarskiRacunServis _dinarskiRacunServis;
 
-        public KorisnikServis(IKorisniciRepozitorijum korisniciRepozitorijum, IDinarskiRacunServis dinarskiRacunServis)
+        public KorisnikServis(IKorisniciRepozitorijum korisniciRepozitorijum)
         {
-            _dinarskiRacunServis = dinarskiRacunServis;
             _korisnikRepozitorijum = korisniciRepozitorijum;
         }
 
@@ -67,7 +65,6 @@ namespace Banka.DomenskaLogika.Servisi
 
             return domenskiModel;
         }
-
         public async Task<KorisnikDomenskiModel> DajKorisnikaPoKorisnickomImenu(string korisnickoIme)
         {
             var korisnik = await _korisnikRepozitorijum.DajPoKorisnickomImenu(korisnickoIme);
@@ -106,6 +103,7 @@ namespace Banka.DomenskaLogika.Servisi
                 Prezime = noviKorisnik.Prezime,
                 KorisnickoIme = noviKorisnik.KorisnickoIme,
                 Adresa = noviKorisnik.Adresa,
+                Lozinka = noviKorisnik.Lozinka,
                 isAdmin = false
             };
 

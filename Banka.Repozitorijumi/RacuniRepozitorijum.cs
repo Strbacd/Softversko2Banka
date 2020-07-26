@@ -18,10 +18,14 @@ namespace Banka.Repozitorijumi
         Task<Racun> DajPoKorisnikuIValuti(Guid idKorisnika, int idValute);
 
     }
-    class RacuniRepozitorijum : IRacuniRepozitorijum
+    public class RacuniRepozitorijum : IRacuniRepozitorijum
     {
         private BankaKontekst _bankaKontekst;
 
+        public RacuniRepozitorijum(BankaKontekst bankaKontekst)
+        {
+            _bankaKontekst = bankaKontekst;
+        }
         public Task<Racun> DajPoId(object id)
         {
             throw new NotImplementedException();
@@ -47,7 +51,7 @@ namespace Banka.Repozitorijumi
 
         public async Task<Racun> DajPoKorisnikuIValuti(Guid idKorisnika, int idValute)
         {
-            var rezultat = _bankaKontekst.Racuni.Where(x => x.IdKorisnika == idKorisnika && x.IdValute == idValute).FirstOrDefault();
+            var rezultat = _bankaKontekst.Racuni.FirstOrDefault(x => x.IdKorisnika == idKorisnika && x.IdValute == idValute);
             return rezultat;
         }
 

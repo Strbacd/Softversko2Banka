@@ -21,5 +21,9 @@ namespace Banka.API.APIModeliPodataka
         public string Prezime { get; set; }
         [StringLength(100, ErrorMessage = Greske.KORISNIK_ADRESA)]
         public string Adresa { get; set; }
+        [Required]
+        [MinLength(5, ErrorMessage = Greske.KORISNIK_POGRESNA_LOZINKA)]
+        [MaxLength(16, ErrorMessage = Greske.KORISNIK_POGRESNA_LOZINKA)]
+        public string Lozinka { get; set; }
     }
 }

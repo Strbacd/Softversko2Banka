@@ -10,6 +10,7 @@
         public const string KORISNIK_POGRESNO_KORISNICKO_IME = "Korisnicko ime mora biti izmedju 4-20 karaktera. ";
         public const string KORISNIK_POGRESNO_IMEPREZIME = "Ime i prezime ne moze biti duze od 50 karaktera. ";
         public const string KORISNIK_ADRESA = "Adresa mora biti do 100 karaktera.";
+        public const string KORISNIK_POGRESNA_LOZINKA = "Lozinka mora sadrzati maksimalno 16 karaktera, a minimalno 5";
         #endregion
 
         #region

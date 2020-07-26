@@ -22,10 +22,11 @@ namespace Banka.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Modelovanje UNIQUE constrainta za idkorisnika i idvalute u tabeli racun
 
-            // Modelovanje kompozitnog kljuca Racun tabele
             modelBuilder.Entity<Racun>()
-                .HasKey(x => new { x.IdValute, x.IdKorisnika });
+                .HasIndex(x => new { x.IdKorisnika, x.IdValute})
+                .IsUnique(true);
 
             // Modelovanje odnosa Korisnika i Racuna (1:n odnos u bazi)
 
