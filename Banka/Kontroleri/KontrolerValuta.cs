@@ -39,7 +39,7 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpGet]
-        [Route("DajPoIdValute/{idValute}")]
+        [Route("DajPoIdValute")]
         public async Task<ActionResult<ValutaDomenskiModel>> DajValutuPoId(int idValute)
         {
             var valuta = await _valutaServis.DajValutuPoId(idValute);

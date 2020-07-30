@@ -66,7 +66,7 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpGet]
-        [Route("{racunId}")]
+        [Route("DajPoId")]
         public async Task<ActionResult<RacunDomenskiModel>> DajRacunPoId(long racunId)
         {
             var racun = await _racunServis.DajPoId(racunId);

@@ -22,6 +22,10 @@ namespace Banka.API.TokenServiceExtensions
             {
                 claims.Add(new Claim(ClaimTypes.Role, "admin"));
             }
+            else
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "user"));
+            }
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

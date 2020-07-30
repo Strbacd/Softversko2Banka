@@ -26,7 +26,7 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("DajPoId")]
         public async Task<ActionResult<PlacanjeDomenskiModel>> DajPlacanjePoId(Guid id)
         {
             var placanje = await _placanjeServis.DajPlacanjePoId(id);
@@ -60,7 +60,7 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpPost]
-        [Route("NovoPlacanje/{idRacuna}")]
+        [Route("NovoPlacanje")]
         public async Task<ActionResult<RacunDomenskiModel>> DodajPlacanje([FromBody] NovoPlacanjeModel novoPlacanje, long idRacuna)
         {
             if(!ModelState.IsValid)

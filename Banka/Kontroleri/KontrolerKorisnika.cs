@@ -42,7 +42,7 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("DajPoId")]
         public async Task <ActionResult<KorisnikDomenskiModel>> DajPoIdKorisnika(Guid id)
         {
             KorisnikDomenskiModel korisnik;
@@ -57,7 +57,7 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpGet]
-        [Route("DajPoKorisnickomImenu/{ime}")]
+        [Route("DajPoKorisnickomImenu")]
         public async Task<ActionResult<IEnumerable<KorisnikDomenskiModel>>> DajPoIdKorisnika(string ime)
         {
             KorisnikDomenskiModel korisnik;
@@ -74,7 +74,7 @@ namespace Banka.API.Kontroleri
 
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("IzmeniKorisnika")]
         public async Task<ActionResult> IzmeniKorisnika(Guid id, [FromBody]IzmenjenKorisnikModel izmenjenKorisnik)
         {
             if (!ModelState.IsValid)
