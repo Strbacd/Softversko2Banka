@@ -66,6 +66,9 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpGet]
+        [Route("DajSveKorisnike")]
+
+        [HttpGet]
         [Route("DajPoId")]
         public async Task<ActionResult<RacunDomenskiModel>> DajRacunPoId(long racunId)
         {
