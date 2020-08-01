@@ -49,7 +49,13 @@ namespace Banka.DomenskaLogika.Servisi
                         Prezime = racun.Korisnik.Prezime,
                         isAdmin = false
                     },
-                    Stanje = racun.Stanje
+                    Stanje = racun.Stanje,
+                    Valuta = new ValutaDomenskiModel
+                    {
+                        NazivValute = racun.Valuta.NazivValute,
+                        OdnosPremaDinaru = racun.Valuta.OdnosPremaDinaru
+                    }
+                    
                 };
                 rezultat.Add(model);
             }
@@ -102,7 +108,12 @@ namespace Banka.DomenskaLogika.Servisi
                     IdKorisnika = racun.IdKorisnika,
                     IdRacuna = racun.IdRacuna,
                     IdValute = racun.IdValute,
-                    Stanje = racun.Stanje
+                    Stanje = racun.Stanje,
+                    Valuta = new ValutaDomenskiModel
+                    {
+                        NazivValute = racun.Valuta.NazivValute,
+                        OdnosPremaDinaru = racun.Valuta.OdnosPremaDinaru
+                    }
                 };
                 rezultat.Add(model);
             }
@@ -122,7 +133,21 @@ namespace Banka.DomenskaLogika.Servisi
                 IdKorisnika = data.IdKorisnika,
                 IdRacuna = data.IdRacuna,
                 IdValute = data.IdValute,
-                Stanje = data.Stanje
+                Stanje = data.Stanje,
+                Valuta = new ValutaDomenskiModel
+                {
+                    NazivValute = data.Valuta.NazivValute,
+                    OdnosPremaDinaru = data.Valuta.OdnosPremaDinaru
+                },
+                Korisnik = new KorisnikDomenskiModel
+                {
+                    Adresa = data.Korisnik.Adresa,
+                    IdKorisnika = data.IdKorisnika,
+                    Ime = data.Korisnik.Ime,
+                    KorisnickoIme = data.Korisnik.KorisnickoIme,
+                    Prezime = data.Korisnik.Prezime,
+                    isAdmin = false
+                }
             };
 
             return rezultat;

@@ -33,31 +33,31 @@ namespace Banka.Repozitorijumi
 
         public async Task<Racun> DajPoIdRacuna(long IdRacuna)
         {
-            var rezultat = _bankaKontekst.Racuni.Where(x => x.IdRacuna == IdRacuna).Include(x => x.Korisnik).FirstOrDefault();
+            var rezultat = _bankaKontekst.Racuni.Where(x => x.IdRacuna == IdRacuna).Include(x => x.Korisnik).Include(x => x.Valuta).FirstOrDefault();
             return rezultat;
         }
 
         public async Task<IEnumerable<Racun>> DajPoKorisnikId(Guid IdKorisnika)
         {
-            var rezultat = _bankaKontekst.Racuni.Where(x => x.IdKorisnika == IdKorisnika);
+            var rezultat = _bankaKontekst.Racuni.Where(x => x.IdKorisnika == IdKorisnika).Include(x => x.Korisnik).Include(x => x.Valuta);
             return rezultat;
         }
 
         public async Task<IEnumerable<Racun>> DajPoValuti(int IdValute)
         {
-            var rezultat = _bankaKontekst.Racuni.Where(x => x.IdValute == IdValute);
+            var rezultat = _bankaKontekst.Racuni.Where(x => x.IdValute == IdValute).Include(x => x.Korisnik).Include(x => x.Valuta);
             return rezultat;
         }
 
         public async Task<Racun> DajPoKorisnikuIValuti(Guid idKorisnika, int idValute)
         {
-            var rezultat = _bankaKontekst.Racuni.FirstOrDefault(x => x.IdKorisnika == idKorisnika && x.IdValute == idValute);
+            var rezultat = _bankaKontekst.Racuni.Include(x => x.Korisnik).Include(x => x.Valuta).FirstOrDefault(x => x.IdKorisnika == idKorisnika && x.IdValute == idValute);
             return rezultat;
         }
 
         public async Task<IEnumerable<Racun>> DajSve()
         {
-            var rezultat = await _bankaKontekst.Racuni.Include(x => x.Korisnik).ToListAsync();
+            var rezultat = await _bankaKontekst.Racuni.Include(x => x.Korisnik).Include(x => x.Korisnik).Include(x => x.Valuta).ToListAsync();
             return rezultat;
         }
 

@@ -11,5 +11,6 @@ namespace Banka.DomenskaLogika.Modeli
         public decimal Stanje { get; set; }
         public Guid IdKorisnika { get; set; }
         public KorisnikDomenskiModel Korisnik { get; set; }
+        public ValutaDomenskiModel Valuta { get; set; }
     }
 }

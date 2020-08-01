@@ -35,17 +35,34 @@ namespace Banka.API.Kontroleri
         public async Task<ActionResult<IEnumerable<RacunDomenskiModel>>> DajSveRacuneKorisnika(Guid korisnikId)
         {
             IEnumerable<RacunDomenskiModel> listaRacuna;
-            listaRacuna = await _racunServis.DajPoKorisniku(korisnikId);
-            if(listaRacuna == null)
+            if (korisnikId != Guid.Empty)
             {
-                ModelGreske greska = new ModelGreske
+                listaRacuna = await _racunServis.DajPoKorisniku(korisnikId);
+                if (listaRacuna == null)
                 {
-                    PorukaGreske = Greske.RACUN_NEPOSTOJECI_RACUN,
-                    StatusKod = System.Net.HttpStatusCode.BadRequest
-                };
-                return BadRequest(greska);
+                    ModelGreske greska = new ModelGreske
+                    {
+                        PorukaGreske = Greske.RACUN_NEPOSTOJECI_RACUN,
+                        StatusKod = System.Net.HttpStatusCode.BadRequest
+                    };
+                    return BadRequest(greska);
+                }
+                return Ok(listaRacuna);
             }
-            return Ok(listaRacuna);
+            else
+            {
+                listaRacuna = await _racunServis.DajSveRacune();
+                if (listaRacuna == null)
+                {
+                    ModelGreske greska = new ModelGreske
+                    {
+                        PorukaGreske = Greske.RACUN_NEPOSTOJECI_RACUN,
+                        StatusKod = System.Net.HttpStatusCode.BadRequest
+                    };
+                    return BadRequest(greska);
+                }
+                return Ok(listaRacuna);
+            }
         }
 
         [HttpGet]

@@ -1,4 +1,5 @@
 ﻿using Banka.API.APIModeliPodataka;
+using Banka.Data.Entiteti;
 using Banka.DomenskaLogika.Interfejsi;
 using Banka.DomenskaLogika.Modeli;
 using Banka.DomenskaLogika.Poruke;
@@ -96,6 +97,57 @@ namespace Banka.API.Kontroleri
 
             }
             return Ok(kreiranaValuta.Valuta);
+        }
+
+        [HttpPut]
+        [Route("IzmeniValutu")]
+        public async Task<ActionResult> IzmeniValutu(int id, [FromBody]IzmenjenaValutaModel izmenjenaValuta)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ValutaDomenskiModel valutaZaPromenu;
+            valutaZaPromenu = await _valutaServis.DajValutuPoId(id);
+            if (valutaZaPromenu == null)
+            {
+                ModelGreske greska = new ModelGreske
+                {
+                    PorukaGreske = Greske.VALUTA_NEPOSTOJECI_ID,
+                    StatusKod = System.Net.HttpStatusCode.BadRequest
+                };
+                return BadRequest(greska);
+            }
+
+            valutaZaPromenu.OdnosPremaDinaru = izmenjenaValuta.OdnosPremaDinaru;
+
+            ModelRezultatKreiranjaValute rezultatPromene;
+            try
+            {
+                rezultatPromene = await _valutaServis.IzmeniValutu(valutaZaPromenu);
+            }
+            catch (DbUpdateException e)
+            {
+                ModelGreske greska = new ModelGreske
+                {
+                    PorukaGreske = e.InnerException.Message ?? e.Message,
+                    StatusKod = System.Net.HttpStatusCode.BadRequest
+                };
+                return BadRequest(greska);
+            }
+
+            if (rezultatPromene.Uspeh == false)
+            {
+                ModelGreske greska = new ModelGreske
+                {
+                    PorukaGreske = rezultatPromene.Greska,
+                    StatusKod = System.Net.HttpStatusCode.BadRequest
+                };
+                return BadRequest(greska);
+            }
+
+            return Accepted(rezultatPromene.Valuta);
         }
 
     }
