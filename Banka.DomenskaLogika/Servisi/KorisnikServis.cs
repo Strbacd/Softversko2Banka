@@ -103,7 +103,6 @@ namespace Banka.DomenskaLogika.Servisi
                 Prezime = noviKorisnik.Prezime,
                 KorisnickoIme = noviKorisnik.KorisnickoIme,
                 Adresa = noviKorisnik.Adresa,
-                Lozinka = noviKorisnik.Lozinka,
                 isAdmin = false
             };
 
@@ -153,7 +152,6 @@ namespace Banka.DomenskaLogika.Servisi
                 Prezime = izmenjenKorisnik.Prezime,
                 KorisnickoIme = izmenjenKorisnik.KorisnickoIme,
                 Adresa = izmenjenKorisnik.Adresa,
-                Lozinka = await _korisnikRepozitorijum.DajLozinku(izmenjenKorisnik.IdKorisnika),
                 isAdmin = izmenjenKorisnik.isAdmin
             };
 
@@ -175,7 +173,6 @@ namespace Banka.DomenskaLogika.Servisi
                 Ime = odgovorRepozitorijuma.Ime,
                 Prezime = odgovorRepozitorijuma.Prezime,
                 Adresa = odgovorRepozitorijuma.Adresa,
-                Lozinka = odgovorRepozitorijuma.Lozinka,
                 isAdmin = odgovorRepozitorijuma.isAdmin
             };
 

@@ -12,7 +12,6 @@ namespace Banka.Repozitorijumi
     public interface IKorisniciRepozitorijum : IRepozitorijum<Korisnik>
     {
         Task<Korisnik> DajPoKorisnickomImenu(string name);
-        Task<string> DajLozinku(Guid id);
     }
 
     public class KorisniciRepozitorijum : IKorisniciRepozitorijum
@@ -29,13 +28,6 @@ namespace Banka.Repozitorijumi
             var rezultatBrisanja = _bankaKontekst.Korisnici.Remove(postojeciKorisnik).Entity;
 
             return rezultatBrisanja;
-        }
-
-        public async Task<string> DajLozinku(Guid id)
-        {
-            var korisnik = await _bankaKontekst.Korisnici.FindAsync(id);
-            string lozinka = korisnik.Lozinka;
-            return lozinka;
         }
 
         public async Task<Korisnik> DajPoKorisnickomImenu(string name)
