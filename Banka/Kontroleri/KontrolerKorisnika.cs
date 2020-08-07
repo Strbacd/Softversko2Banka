@@ -58,18 +58,22 @@ namespace Banka.API.Kontroleri
 
         [HttpGet]
         [Route("DajPoKorisnickomImenu")]
-        public async Task<ActionResult<IEnumerable<KorisnikDomenskiModel>>> DajPoIdKorisnika(string ime)
+        public async Task<ActionResult<KorisnikDomenskiModel>> DajPoIdKorisnika(string ime)
         {
             KorisnikDomenskiModel korisnik;
 
             korisnik = await _korisnikServis.DajKorisnikaPoKorisnickomImenu(ime);
 
-            List<KorisnikDomenskiModel> listaKorisnika = new List<KorisnikDomenskiModel>();
-            listaKorisnika.Add(korisnik);
-
-            IEnumerable<KorisnikDomenskiModel> odgovor = listaKorisnika;
-
-            return Ok(odgovor);
+            if (korisnik == null)
+            {
+                ModelGreske greska = new ModelGreske
+                {
+                    PorukaGreske = Greske.KORISNIK_NEPOSTOJECI_ID,
+                    StatusKod = System.Net.HttpStatusCode.BadRequest
+                };
+                return BadRequest(greska);
+            }
+            return Ok(korisnik);
         }
 
 
