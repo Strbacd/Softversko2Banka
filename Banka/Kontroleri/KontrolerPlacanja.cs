@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace Banka.API.Kontroleri
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class KontrolerPlacanja : ControllerBase
@@ -60,7 +59,7 @@ namespace Banka.API.Kontroleri
         }
 
         [HttpPost]
-        [Route("NovoPlacanje")]
+        [Route("NovoPlacanje/{idRacuna}")]
         public async Task<ActionResult<RacunDomenskiModel>> DodajPlacanje([FromBody] NovoPlacanjeModel novoPlacanje, long idRacuna)
         {
             if(!ModelState.IsValid)

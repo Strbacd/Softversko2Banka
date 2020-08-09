@@ -25,7 +25,7 @@ namespace Banka.API.Kontroleri
         }
 
         [Route("daj-token")]
-        public IActionResult GenerateToken(string korisnickoIme, string name = "banka-demo-auth")
+        public IActionResult GenerateToken(string korisnickoIme)
         {
             bool admin = false;
             var korisnik = _korisnikServis.DajKorisnikaPoKorisnickomImenu(korisnickoIme).Result;
@@ -42,7 +42,7 @@ namespace Banka.API.Kontroleri
             admin = korisnik.isAdmin;
 
             var jwt = JwtTokenGenerator
-                .Generate(name, admin, _configuration["Tokens:Issuer"], _configuration["Tokens:Key"]);
+                .Generate(korisnickoIme, admin, _configuration["Tokens:Issuer"], _configuration["Tokens:Key"]);
 
             return Ok(new { token = jwt });
         }
