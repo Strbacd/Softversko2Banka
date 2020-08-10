@@ -108,8 +108,17 @@ namespace Banka.API.Kontroleri
         [Route("IzbrisiPlacanje")]
         public async Task<ActionResult<PlacanjeDomenskiModel>> IzbrisiPlacanje(Guid idPlacanja)
         {
-            // TO DO
-            return null;
+            var izbrisanoPlacanje = await _placanjeServis.IzbrisiPlacanje(idPlacanja);
+            if (izbrisanoPlacanje == null)
+            {
+                ModelGreske greska = new ModelGreske
+                {
+                    PorukaGreske = Greske.PLACANJE_POGRESAN_RACUNID,
+                    StatusKod = System.Net.HttpStatusCode.BadRequest
+                };
+                return BadRequest(greska);
+            }
+            return Ok(izbrisanoPlacanje);
         }
     }
 }

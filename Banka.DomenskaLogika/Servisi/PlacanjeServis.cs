@@ -6,6 +6,7 @@ using Banka.Repozitorijumi;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -128,6 +129,36 @@ namespace Banka.DomenskaLogika.Servisi
             return uspesnoPlacanje;
         }
 
+        public async Task<PlacanjeDomenskiModel> IzbrisiPlacanje(Guid idPlacanja)
+        {
+            var proveraPlacanja = await _placanjeRepo.DajPoId(idPlacanja);
+            if (proveraPlacanja == null)
+            {
+                return null;
+            }
+
+            var izbrisanoPlacanje = _placanjeRepo.Izbrisi(idPlacanja);
+            if(izbrisanoPlacanje == null)
+            {
+                return null;
+            }
+
+            _placanjeRepo.Sacuvaj();
+
+            PlacanjeDomenskiModel rezultat = new PlacanjeDomenskiModel
+            {
+                BrojRacunaPrimaoca = izbrisanoPlacanje.BrojRacunaPrimaoca,
+                IdPlacanja = izbrisanoPlacanje.IdPlacanja,
+                IdRacuna = izbrisanoPlacanje.IdRacuna,
+                Iznos = izbrisanoPlacanje.Iznos,
+                ModelPlacanja = izbrisanoPlacanje.ModelPlacanja,
+                NazivPrimaoca = izbrisanoPlacanje.NazivPrimaoca,
+                PozivNaBroj = izbrisanoPlacanje.PozivNaBroj,
+                VremePlacanja = izbrisanoPlacanje.VremePlacanja
+            };
+
+            return rezultat;
+        }
 
 
     }

@@ -11,6 +11,7 @@ namespace Banka.DomenskaLogika.Interfejsi
         Task<ModelRezultatPlacanja> DodajPlacanje(PlacanjeDomenskiModel novoPlacanje);
         Task<PlacanjeDomenskiModel> DajPlacanjePoId(Guid id);
         Task<IEnumerable<PlacanjeDomenskiModel>> DajPlacanjaPoRacunId(long idRacuna);
+        Task<PlacanjeDomenskiModel> IzbrisiPlacanje(Guid idPlacanja);
 
     }
 }
