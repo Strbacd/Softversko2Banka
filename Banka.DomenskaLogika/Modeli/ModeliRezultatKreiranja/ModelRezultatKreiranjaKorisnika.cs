@@ -9,5 +9,6 @@ namespace Banka.DomenskaLogika.Modeli
         public bool Uspeh { get; set; }
         public string Greska { get; set; }
         public KorisnikDomenskiModel Korisnik { get; set; }
+        public RacunDomenskiModel DinarskiRacun { get; set; }
     }
 }

@@ -58,6 +58,7 @@ namespace Banka.API
             services.AddTransient<IRacunServis, RacunServis>();
             services.AddTransient<IPlacanjeServis, PlacanjeServis>();
             services.AddTransient<IValutaServis, ValutaServis>();
+            services.AddTransient<IPoslovnaPravilaServisa, PoslovnaPravilaServisa>();
             
 
             // Allow Cors for client app

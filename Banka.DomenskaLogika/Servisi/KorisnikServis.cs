@@ -13,10 +13,12 @@ namespace Banka.DomenskaLogika.Servisi
     public class KorisnikServis : IKorisnikServis
     {
         private readonly IKorisniciRepozitorijum _korisnikRepozitorijum;
+        private readonly IPoslovnaPravilaServisa _poslovnaPravila;
 
-        public KorisnikServis(IKorisniciRepozitorijum korisniciRepozitorijum)
+        public KorisnikServis(IKorisniciRepozitorijum korisniciRepozitorijum, IPoslovnaPravilaServisa poslovnaPravila)
         {
             _korisnikRepozitorijum = korisniciRepozitorijum;
+            _poslovnaPravila = poslovnaPravila;
         }
 
         public async Task<IEnumerable<KorisnikDomenskiModel>> DajSveKorisnike()
@@ -118,6 +120,8 @@ namespace Banka.DomenskaLogika.Servisi
 
             _korisnikRepozitorijum.Sacuvaj();
 
+            var dinarskiRacun = await _poslovnaPravila.DodajDinarskiRacunPriKreacijiKorisnika(rezultatUnosa.IdKorisnika);
+
             ModelRezultatKreiranjaKorisnika unetiKorisnik = new ModelRezultatKreiranjaKorisnika
             {
                 Uspeh = true,
@@ -129,7 +133,8 @@ namespace Banka.DomenskaLogika.Servisi
                     Prezime = rezultatUnosa.Prezime,
                     Adresa = rezultatUnosa.Adresa,
                     KorisnickoIme = rezultatUnosa.KorisnickoIme
-                }
+                },
+                DinarskiRacun = dinarskiRacun
             };
             return unetiKorisnik;
         }
