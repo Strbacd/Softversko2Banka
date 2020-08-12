@@ -16,9 +16,11 @@ namespace Banka.DomenskaLogika.Servisi
     {
         private readonly IPlacanjeRepozitorijum _placanjeRepo;
         private readonly IRacunServis _racunServis;
+        private readonly IPoslovnaPravilaServisa _poslovnaPravila;
 
-        public PlacanjeServis(IPlacanjeRepozitorijum placanjeRepo, IRacunServis racunServis)
+        public PlacanjeServis(IPlacanjeRepozitorijum placanjeRepo, IRacunServis racunServis, IPoslovnaPravilaServisa poslovnaPravila)
         {
+            _poslovnaPravila = poslovnaPravila;
             _placanjeRepo = placanjeRepo;
             _racunServis = racunServis;
         }
@@ -89,7 +91,7 @@ namespace Banka.DomenskaLogika.Servisi
                 VremePlacanja = DateTime.Now
             };
 
-            var proveraStanjaRacuna = await _racunServis.OduzmiSredstva(placanjeZaUnos.IdRacuna, placanjeZaUnos.Iznos);
+            var proveraStanjaRacuna = await _poslovnaPravila.OduzmiSredstva(placanjeZaUnos.IdRacuna, placanjeZaUnos.Iznos);
             if (proveraStanjaRacuna.Uspeh != true)
             {
                 return new ModelRezultatPlacanja

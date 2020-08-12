@@ -9,5 +9,6 @@ namespace Banka.DomenskaLogika.Interfejsi
     public interface IPoslovnaPravilaServisa
     {
         Task<RacunDomenskiModel> DodajDinarskiRacunPriKreacijiKorisnika(Guid korisnikId);
+        Task<ModelRezultatKreiranjaRacuna> OduzmiSredstva(long id, decimal sumaNovca);
     }
 }

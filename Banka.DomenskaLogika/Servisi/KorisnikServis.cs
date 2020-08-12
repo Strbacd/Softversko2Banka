@@ -190,10 +190,5 @@ namespace Banka.DomenskaLogika.Servisi
 
             return rezultat;
         }
-        public async Task<KorisnikDomenskiModel> DeaktivirajKorisnika(Guid id)
-        {
-            //TO BE IMPLEMENTED
-            return null;
-        }
     }
 }
